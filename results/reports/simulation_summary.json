@@ -1,0 +1,45 @@
+{
+  "total_frames": 4914,
+  "protocol_corruptions_detected_pct": 100.0,
+  "corruption_suite": [
+    {
+      "test_name": "CRC Bit Inversion",
+      "detected": true,
+      "errors": [
+        "CRC_MISMATCH"
+      ]
+    },
+    {
+      "test_name": "Dynamic Stuffing Violation",
+      "detected": true,
+      "errors": [
+        "DYNAMIC_STUFF_ERROR",
+        "FIXED_STUFF_ERROR",
+        "STUFF_COUNT_PARITY_ERROR",
+        "CRC_MISMATCH",
+        "ACK_DELIMITER_ERROR"
+      ]
+    },
+    {
+      "test_name": "Fixed Stuff Bit Inversion (FS0)",
+      "detected": true,
+      "errors": [
+        "FIXED_STUFF_ERROR"
+      ]
+    },
+    {
+      "test_name": "Fixed Stuff Bit Inversion (FS1)",
+      "detected": true,
+      "errors": [
+        "FIXED_STUFF_ERROR"
+      ]
+    },
+    {
+      "test_name": "ACK Delimiter Violation",
+      "detected": true,
+      "errors": [
+        "ACK_DELIMITER_ERROR"
+      ]
+    }
+  ]
+}

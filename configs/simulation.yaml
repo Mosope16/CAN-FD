@@ -1,0 +1,27 @@
+# CAN-FD Simulation Global Configuration
+simulation:
+  seed: 42
+  duration_ms: 10000          # 10 seconds total run
+  time_resolution_us: 1       # 1 us integer tick
+  nominal_bitrate: 500000     # 500 kbps (2 us per bit)
+  data_bitrate: 2000000       # 2 Mbps (0.5 us per bit)
+  sample_point_nominal: 0.80
+  sample_point_data: 0.75
+
+feature_extraction:
+  window_sizes_ms: [10, 50, 100, 500]
+  step_size_ms: 10
+  history_buffer_size: 1000
+  integer_scaling:
+    time_unit: "us"           # All time deviations and inter-arrivals in microseconds
+    rate_scale: 1             # Frames per window
+    similarity_scale: 1000    # Fixed point integer 0-1000 for cosine/hamming similarity
+
+monitoring:
+  suppression_deadline_factor: 2.5 # Missed deadline after 2.5 * expected_period
+  max_unseen_ids: 64
+  history_depth: 32
+
+logging:
+  level: "INFO"
+  output_dir: "results"

@@ -1,0 +1,843 @@
+{
+  "depth_summary": {
+    "5": {
+      "accuracy": 0.9891,
+      "macro_precision": 0.9545,
+      "macro_recall": 0.9951,
+      "macro_f1": 0.9717,
+      "false_positive_rate": 0.0202,
+      "per_class": {
+        "Normal": {
+          "class_id": 0,
+          "tp": 2519,
+          "fp": 2,
+          "fn": 52,
+          "tn": 2401,
+          "precision": 0.9992,
+          "recall": 0.9798,
+          "f1": 0.9894,
+          "support": 2571
+        },
+        "DoS": {
+          "class_id": 1,
+          "tp": 1600,
+          "fp": 0,
+          "fn": 0,
+          "tn": 3374,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1600
+        },
+        "Fuzzing": {
+          "class_id": 2,
+          "tp": 499,
+          "fp": 1,
+          "fn": 1,
+          "tn": 4473,
+          "precision": 0.998,
+          "recall": 0.998,
+          "f1": 0.998,
+          "support": 500
+        },
+        "Spoofing": {
+          "class_id": 3,
+          "tp": 142,
+          "fp": 50,
+          "fn": 1,
+          "tn": 4781,
+          "precision": 0.7396,
+          "recall": 0.993,
+          "f1": 0.8478,
+          "support": 143
+        },
+        "Replay": {
+          "class_id": 4,
+          "tp": 100,
+          "fp": 1,
+          "fn": 0,
+          "tn": 4873,
+          "precision": 0.9901,
+          "recall": 1.0,
+          "f1": 0.995,
+          "support": 100
+        },
+        "Suppression": {
+          "class_id": 5,
+          "tp": 60,
+          "fp": 0,
+          "fn": 0,
+          "tn": 4914,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 60
+        }
+      },
+      "confusion_matrix": [
+        [
+          2519,
+          0,
+          1,
+          50,
+          1,
+          0
+        ],
+        [
+          0,
+          1600,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          499,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          142,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          100,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          60
+        ]
+      ],
+      "total_samples": 4974
+    },
+    "6": {
+      "accuracy": 0.9968,
+      "macro_precision": 0.9866,
+      "macro_recall": 0.9954,
+      "macro_f1": 0.9909,
+      "false_positive_rate": 0.0047,
+      "per_class": {
+        "Normal": {
+          "class_id": 0,
+          "tp": 2559,
+          "fp": 4,
+          "fn": 12,
+          "tn": 2399,
+          "precision": 0.9984,
+          "recall": 0.9953,
+          "f1": 0.9969,
+          "support": 2571
+        },
+        "DoS": {
+          "class_id": 1,
+          "tp": 1600,
+          "fp": 0,
+          "fn": 0,
+          "tn": 3374,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1600
+        },
+        "Fuzzing": {
+          "class_id": 2,
+          "tp": 499,
+          "fp": 1,
+          "fn": 1,
+          "tn": 4473,
+          "precision": 0.998,
+          "recall": 0.998,
+          "f1": 0.998,
+          "support": 500
+        },
+        "Spoofing": {
+          "class_id": 3,
+          "tp": 140,
+          "fp": 10,
+          "fn": 3,
+          "tn": 4821,
+          "precision": 0.9333,
+          "recall": 0.979,
+          "f1": 0.9556,
+          "support": 143
+        },
+        "Replay": {
+          "class_id": 4,
+          "tp": 100,
+          "fp": 1,
+          "fn": 0,
+          "tn": 4873,
+          "precision": 0.9901,
+          "recall": 1.0,
+          "f1": 0.995,
+          "support": 100
+        },
+        "Suppression": {
+          "class_id": 5,
+          "tp": 60,
+          "fp": 0,
+          "fn": 0,
+          "tn": 4914,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 60
+        }
+      },
+      "confusion_matrix": [
+        [
+          2559,
+          0,
+          1,
+          10,
+          1,
+          0
+        ],
+        [
+          0,
+          1600,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          499,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          0,
+          0,
+          140,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          100,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          60
+        ]
+      ],
+      "total_samples": 4974
+    },
+    "7": {
+      "accuracy": 0.9952,
+      "macro_precision": 0.9802,
+      "macro_recall": 0.9916,
+      "macro_f1": 0.9857,
+      "false_positive_rate": 0.0066,
+      "per_class": {
+        "Normal": {
+          "class_id": 0,
+          "tp": 2554,
+          "fp": 6,
+          "fn": 17,
+          "tn": 2397,
+          "precision": 0.9977,
+          "recall": 0.9934,
+          "f1": 0.9955,
+          "support": 2571
+        },
+        "DoS": {
+          "class_id": 1,
+          "tp": 1600,
+          "fp": 0,
+          "fn": 0,
+          "tn": 3374,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1600
+        },
+        "Fuzzing": {
+          "class_id": 2,
+          "tp": 499,
+          "fp": 1,
+          "fn": 1,
+          "tn": 4473,
+          "precision": 0.998,
+          "recall": 0.998,
+          "f1": 0.998,
+          "support": 500
+        },
+        "Spoofing": {
+          "class_id": 3,
+          "tp": 137,
+          "fp": 16,
+          "fn": 6,
+          "tn": 4815,
+          "precision": 0.8954,
+          "recall": 0.958,
+          "f1": 0.9257,
+          "support": 143
+        },
+        "Replay": {
+          "class_id": 4,
+          "tp": 100,
+          "fp": 1,
+          "fn": 0,
+          "tn": 4873,
+          "precision": 0.9901,
+          "recall": 1.0,
+          "f1": 0.995,
+          "support": 100
+        },
+        "Suppression": {
+          "class_id": 5,
+          "tp": 60,
+          "fp": 0,
+          "fn": 0,
+          "tn": 4914,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 60
+        }
+      },
+      "confusion_matrix": [
+        [
+          2554,
+          0,
+          1,
+          15,
+          1,
+          0
+        ],
+        [
+          0,
+          1600,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          499,
+          1,
+          0,
+          0
+        ],
+        [
+          6,
+          0,
+          0,
+          137,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          100,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          60
+        ]
+      ],
+      "total_samples": 4974
+    },
+    "8": {
+      "accuracy": 0.9972,
+      "macro_precision": 0.9869,
+      "macro_recall": 0.9977,
+      "macro_f1": 0.9922,
+      "false_positive_rate": 0.0047,
+      "per_class": {
+        "Normal": {
+          "class_id": 0,
+          "tp": 2559,
+          "fp": 2,
+          "fn": 12,
+          "tn": 2401,
+          "precision": 0.9992,
+          "recall": 0.9953,
+          "f1": 0.9973,
+          "support": 2571
+        },
+        "DoS": {
+          "class_id": 1,
+          "tp": 1600,
+          "fp": 0,
+          "fn": 0,
+          "tn": 3374,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1600
+        },
+        "Fuzzing": {
+          "class_id": 2,
+          "tp": 499,
+          "fp": 1,
+          "fn": 1,
+          "tn": 4473,
+          "precision": 0.998,
+          "recall": 0.998,
+          "f1": 0.998,
+          "support": 500
+        },
+        "Spoofing": {
+          "class_id": 3,
+          "tp": 142,
+          "fp": 10,
+          "fn": 1,
+          "tn": 4821,
+          "precision": 0.9342,
+          "recall": 0.993,
+          "f1": 0.9627,
+          "support": 143
+        },
+        "Replay": {
+          "class_id": 4,
+          "tp": 100,
+          "fp": 1,
+          "fn": 0,
+          "tn": 4873,
+          "precision": 0.9901,
+          "recall": 1.0,
+          "f1": 0.995,
+          "support": 100
+        },
+        "Suppression": {
+          "class_id": 5,
+          "tp": 60,
+          "fp": 0,
+          "fn": 0,
+          "tn": 4914,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 60
+        }
+      },
+      "confusion_matrix": [
+        [
+          2559,
+          0,
+          1,
+          10,
+          1,
+          0
+        ],
+        [
+          0,
+          1600,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          499,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          142,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          100,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          60
+        ]
+      ],
+      "total_samples": 4974
+    }
+  },
+  "test_metrics": {
+    "accuracy": 0.9966,
+    "macro_precision": 0.9886,
+    "macro_recall": 0.9882,
+    "macro_f1": 0.9882,
+    "false_positive_rate": 0.0039,
+    "per_class": {
+      "Normal": {
+        "class_id": 0,
+        "tp": 2562,
+        "fp": 7,
+        "fn": 10,
+        "tn": 2396,
+        "precision": 0.9973,
+        "recall": 0.9961,
+        "f1": 0.9967,
+        "support": 2572
+      },
+      "DoS": {
+        "class_id": 1,
+        "tp": 1600,
+        "fp": 0,
+        "fn": 0,
+        "tn": 3375,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1600
+      },
+      "Fuzzing": {
+        "class_id": 2,
+        "tp": 500,
+        "fp": 1,
+        "fn": 0,
+        "tn": 4474,
+        "precision": 0.998,
+        "recall": 1.0,
+        "f1": 0.999,
+        "support": 500
+      },
+      "Spoofing": {
+        "class_id": 3,
+        "tp": 142,
+        "fp": 8,
+        "fn": 1,
+        "tn": 4824,
+        "precision": 0.9467,
+        "recall": 0.993,
+        "f1": 0.9693,
+        "support": 143
+      },
+      "Replay": {
+        "class_id": 4,
+        "tp": 94,
+        "fp": 1,
+        "fn": 6,
+        "tn": 4874,
+        "precision": 0.9895,
+        "recall": 0.94,
+        "f1": 0.9641,
+        "support": 100
+      },
+      "Suppression": {
+        "class_id": 5,
+        "tp": 60,
+        "fp": 0,
+        "fn": 0,
+        "tn": 4915,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      }
+    },
+    "confusion_matrix": [
+      [
+        2562,
+        0,
+        1,
+        8,
+        1,
+        0
+      ],
+      [
+        0,
+        1600,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        500,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        142,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0,
+        0,
+        94,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        60
+      ]
+    ],
+    "total_samples": 4975
+  },
+  "latencies": {
+    "Suppression_Brake": {
+      "attack_type": 5,
+      "start_ms": 8000.0,
+      "first_alert_ms": 8029.944,
+      "latency_ms": 29.94,
+      "detected": true
+    },
+    "DoS_Flood": {
+      "attack_type": 1,
+      "start_ms": 1000.0,
+      "first_alert_ms": 1000.0,
+      "latency_ms": 0.0,
+      "detected": true
+    },
+    "Fuzzing_Random": {
+      "attack_type": 2,
+      "start_ms": 2500.0,
+      "first_alert_ms": 2500.0,
+      "latency_ms": 0.0,
+      "detected": true
+    },
+    "Spoofing_Brake": {
+      "attack_type": 3,
+      "start_ms": 4500.0,
+      "first_alert_ms": 4500.0,
+      "latency_ms": 0.0,
+      "detected": true
+    },
+    "Replay_Steering": {
+      "attack_type": 4,
+      "start_ms": 6500.0,
+      "first_alert_ms": 6500.0,
+      "latency_ms": 0.0,
+      "detected": true
+    }
+  },
+  "cpu_latencies": {
+    "avg_us": 217.774,
+    "worst_case_us": 410.902,
+    "p99_us": 290.694
+  },
+  "throughput": {
+    "frames_per_sec": 64091.5,
+    "total_frames": 4915,
+    "elapsed_sec": 0.0767,
+    "per_frame_overhead_us": 15.6
+  },
+  "ablation_results": {
+    "Config_A_PerFrameOnly": {
+      "num_features": 8,
+      "features_used": [
+        "frame_id",
+        "frame_dlc",
+        "payload_delta",
+        "inter_arrival",
+        "period_deviation",
+        "id_seen_before",
+        "dlc_mismatch",
+        "payload_change_count"
+      ],
+      "accuracy": 0.9787,
+      "macro_f1": 0.9229,
+      "macro_recall": 0.9385,
+      "false_positive_rate": 0.0268
+    },
+    "Config_B_PerFrame_Plus_Window": {
+      "num_features": 12,
+      "features_used": [
+        "frame_id",
+        "frame_dlc",
+        "payload_delta",
+        "inter_arrival",
+        "period_deviation",
+        "id_seen_before",
+        "dlc_mismatch",
+        "payload_change_count",
+        "id_rate",
+        "total_bus_rate",
+        "replay_similarity",
+        "duplicate_count"
+      ],
+      "accuracy": 0.9956,
+      "macro_f1": 0.9852,
+      "macro_recall": 0.9857,
+      "false_positive_rate": 0.0051
+    },
+    "Config_C_Complete_FullFeatures": {
+      "num_features": 14,
+      "features_used": [
+        "frame_id",
+        "frame_dlc",
+        "payload_delta",
+        "inter_arrival",
+        "period_deviation",
+        "id_rate",
+        "total_bus_rate",
+        "id_seen_before",
+        "dlc_mismatch",
+        "payload_change_count",
+        "protocol_error_count",
+        "missing_frame_count",
+        "replay_similarity",
+        "duplicate_count"
+      ],
+      "accuracy": 0.9956,
+      "macro_f1": 0.9852,
+      "macro_recall": 0.9857,
+      "false_positive_rate": 0.0051
+    }
+  },
+  "unseen_results": {
+    "Excluded_DoS": {
+      "excluded_class_id": 1,
+      "unseen_samples": 1600,
+      "flagged_as_anomalous": 1600,
+      "anomaly_recall": 1.0
+    },
+    "Excluded_Fuzzing": {
+      "excluded_class_id": 2,
+      "unseen_samples": 500,
+      "flagged_as_anomalous": 43,
+      "anomaly_recall": 0.086
+    },
+    "Excluded_Spoofing": {
+      "excluded_class_id": 3,
+      "unseen_samples": 143,
+      "flagged_as_anomalous": 2,
+      "anomaly_recall": 0.014
+    },
+    "Excluded_Replay": {
+      "excluded_class_id": 4,
+      "unseen_samples": 100,
+      "flagged_as_anomalous": 0,
+      "anomaly_recall": 0.0
+    }
+  },
+  "requirements_summary": [
+    {
+      "id": "REQ-01",
+      "threat": "DoS",
+      "target": "Latency <= 50 ms",
+      "actual": "0.00 ms",
+      "pass": true
+    },
+    {
+      "id": "REQ-02",
+      "threat": "Fuzzing",
+      "target": "Recall >= 95%",
+      "actual": "100.00%",
+      "pass": true
+    },
+    {
+      "id": "REQ-03",
+      "threat": "Spoofing",
+      "target": "Recall >= 90%",
+      "actual": "99.30%",
+      "pass": true
+    },
+    {
+      "id": "REQ-04",
+      "threat": "Replay",
+      "target": "Recall >= 90%",
+      "actual": "94.00%",
+      "pass": true
+    },
+    {
+      "id": "REQ-05",
+      "threat": "Suppression",
+      "target": "Latency <= 100 ms",
+      "actual": "29.94 ms",
+      "pass": true
+    },
+    {
+      "id": "REQ-06",
+      "threat": "Bit Corruption",
+      "target": "100% of defined cases",
+      "actual": "100.0%",
+      "pass": true
+    },
+    {
+      "id": "REQ-07",
+      "threat": "False Alarms",
+      "target": "FPR < 1.0%",
+      "actual": "0.390%",
+      "pass": true
+    },
+    {
+      "id": "REQ-08",
+      "threat": "Throughput",
+      "target": ">= 10000 fps",
+      "actual": "64091.5 fps",
+      "pass": true
+    },
+    {
+      "id": "REQ-09",
+      "threat": "Reproducibility",
+      "target": "100% identical outputs",
+      "actual": "100.0%",
+      "pass": true
+    },
+    {
+      "id": "REQ-10",
+      "threat": "C Inference",
+      "target": "100% C/Python agreement",
+      "actual": "100.00%",
+      "pass": true
+    }
+  ]
+}
