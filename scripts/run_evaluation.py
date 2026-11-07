@@ -100,16 +100,21 @@ def main() -> None:
         y_pred=test_preds,
     )
     for aname, ldata in latencies.items():
-        print(f"         {aname:<24} Detected={ldata['detected']} Latency={ldata['latency_ms']:.2f} ms")
+        first_flag = "YES" if ldata["first_frame_detected"] else "NO"
+        sustained_str = f"{ldata['sustained_3frame_latency_ms']:.2f} ms" if ldata["sustained_3frame_latency_ms"] >= 0 else "N/A"
+        print(f"         {aname:<24} Det={ldata['detected']} | 1stFrameDet={first_flag} | OnsetLat={ldata['latency_from_onset_us']} us ({ldata['latency_ms']:.2f} ms) | Sustained3Frame={sustained_str}")
 
     cpu_latencies = benchmark_cpu_inference_latency(best_model, X_test, n_iterations=1000)
-    print(f"         CPU Execution Time per Frame: Avg={cpu_latencies['avg_us']:.2f} us, Worst-Case={cpu_latencies['worst_case_us']:.2f} us")
+    print(f"         Python Single-Vector Overhead: Avg={cpu_latencies['avg_us']:.2f} us/call, WCET={cpu_latencies['worst_case_us']:.2f} us")
 
     # 5. Throughput Benchmarking
     print("\n[Step 5] Benchmarking pipeline throughput (REQ-08)...")
     test_frames, _ = generate_simulation_episode(network_yaml="configs/network.yaml", duration_ms=10000, seed=202)
     tp_benchmark = benchmark_pipeline_throughput(test_frames, "configs/network.yaml", best_model)
-    print(f"         Sustained Throughput: {tp_benchmark['frames_per_sec']} frames/sec (Overhead: {tp_benchmark['per_frame_overhead_us']} us/frame)")
+    print(f"         Pipeline Sustained Throughput: {tp_benchmark['frames_per_sec']} frames/sec (Overhead: {tp_benchmark['per_frame_overhead_us']} us/frame)")
+    print(f"           - Feature Extraction:        {tp_benchmark['feature_extraction_us']} us/frame")
+    print(f"           - Vectorized Model Inf:      {tp_benchmark['vectorized_inference_us']} us/frame")
+    print(f"           - Target ANSI C Bare-Metal:  {tp_benchmark['c_inference_ns']} ns/frame ({tp_benchmark['c_throughput_fps']/1e6:.1f}M fps)")
 
     # 6. Protocol Corruption Robustness (REQ-06)
     print("\n[Step 6] Validating protocol bit-level corruption test suite (REQ-06)...")
@@ -152,10 +157,12 @@ def main() -> None:
         print(f"         {cname:<30} Features: {cdata['num_features']:<2} Macro-F1: {cdata['macro_f1']:.4f} Acc: {cdata['accuracy']:.4f}")
 
     # 10. Unseen Attack Generalisation
-    print("\n[Step 10] Executing Unseen Attack Evaluation...")
-    unseen_res = run_unseen_attack_evaluation(X_test, y_test)
+    print("\n[Step 10] Executing Unseen Attack Evaluation (Supervised DT vs. Dual-Engine)...")
+    unseen_res = run_unseen_attack_evaluation(X_train, y_train, X_test, y_test)
+    print(f"         {'Excluded Attack':<20} {'DT Alone':<12} {'AD Alone':<12} {'Dual-Engine':<12} {'Samples':<8}")
+    print("         " + "-" * 62)
     for aname, adata in unseen_res.items():
-        print(f"         {aname:<24} Anomaly Recall: {adata['anomaly_recall'] * 100.0:.2f}% ({adata['flagged_as_anomalous']}/{adata['unseen_samples']})")
+        print(f"         {aname:<20} {adata['dt_alone_recall']*100:>6.2f}%      {adata['ad_alone_recall']*100:>6.2f}%      {adata['dual_engine_recall']*100:>6.2f}%      {adata['unseen_samples']:<8}")
 
     # 11. Compile Verification Status Matrix against REQ-01..10
     dos_latency = 999.0

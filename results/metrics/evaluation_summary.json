@@ -1,10 +1,10 @@
 {
   "depth_summary": {
     "5": {
-      "accuracy": 0.9891,
-      "macro_precision": 0.9545,
-      "macro_recall": 0.9951,
-      "macro_f1": 0.9717,
+      "accuracy": 0.9887,
+      "macro_precision": 0.9549,
+      "macro_recall": 0.9939,
+      "macro_f1": 0.9718,
       "false_positive_rate": 0.0202,
       "per_class": {
         "Normal": {
@@ -20,35 +20,35 @@
         },
         "DoS": {
           "class_id": 1,
-          "tp": 1600,
+          "tp": 1599,
           "fp": 0,
-          "fn": 0,
+          "fn": 1,
           "tn": 3374,
           "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
+          "recall": 0.9994,
+          "f1": 0.9997,
           "support": 1600
         },
         "Fuzzing": {
           "class_id": 2,
           "tp": 499,
-          "fp": 1,
+          "fp": 7,
           "fn": 1,
-          "tn": 4473,
-          "precision": 0.998,
+          "tn": 4467,
+          "precision": 0.9862,
           "recall": 0.998,
-          "f1": 0.998,
+          "f1": 0.992,
           "support": 500
         },
         "Spoofing": {
           "class_id": 3,
-          "tp": 142,
-          "fp": 50,
-          "fn": 1,
-          "tn": 4781,
-          "precision": 0.7396,
-          "recall": 0.993,
-          "f1": 0.8478,
+          "tp": 141,
+          "fp": 46,
+          "fn": 2,
+          "tn": 4785,
+          "precision": 0.754,
+          "recall": 0.986,
+          "f1": 0.8545,
           "support": 143
         },
         "Replay": {
@@ -78,15 +78,15 @@
         [
           2519,
           0,
-          1,
-          50,
+          5,
+          46,
           1,
           0
         ],
         [
           0,
-          1600,
-          0,
+          1599,
+          1,
           0,
           0,
           0
@@ -102,8 +102,8 @@
         [
           1,
           0,
-          0,
-          142,
+          1,
+          141,
           0,
           0
         ],
@@ -128,53 +128,53 @@
     },
     "6": {
       "accuracy": 0.9968,
-      "macro_precision": 0.9866,
+      "macro_precision": 0.9901,
       "macro_recall": 0.9954,
-      "macro_f1": 0.9909,
-      "false_positive_rate": 0.0047,
+      "macro_f1": 0.9927,
+      "false_positive_rate": 0.0043,
       "per_class": {
         "Normal": {
           "class_id": 0,
-          "tp": 2559,
-          "fp": 4,
-          "fn": 12,
-          "tn": 2399,
-          "precision": 0.9984,
-          "recall": 0.9953,
-          "f1": 0.9969,
+          "tp": 2560,
+          "fp": 3,
+          "fn": 11,
+          "tn": 2400,
+          "precision": 0.9988,
+          "recall": 0.9957,
+          "f1": 0.9973,
           "support": 2571
         },
         "DoS": {
           "class_id": 1,
-          "tp": 1600,
+          "tp": 1599,
           "fp": 0,
-          "fn": 0,
+          "fn": 1,
           "tn": 3374,
           "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
+          "recall": 0.9994,
+          "f1": 0.9997,
           "support": 1600
         },
         "Fuzzing": {
           "class_id": 2,
           "tp": 499,
-          "fp": 1,
+          "fp": 7,
           "fn": 1,
-          "tn": 4473,
-          "precision": 0.998,
+          "tn": 4467,
+          "precision": 0.9862,
           "recall": 0.998,
-          "f1": 0.998,
+          "f1": 0.992,
           "support": 500
         },
         "Spoofing": {
           "class_id": 3,
           "tp": 140,
-          "fp": 10,
+          "fp": 5,
           "fn": 3,
-          "tn": 4821,
-          "precision": 0.9333,
+          "tn": 4826,
+          "precision": 0.9655,
           "recall": 0.979,
-          "f1": 0.9556,
+          "f1": 0.9722,
           "support": 143
         },
         "Replay": {
@@ -202,17 +202,17 @@
       },
       "confusion_matrix": [
         [
-          2559,
+          2560,
           0,
-          1,
-          10,
+          5,
+          5,
           1,
           0
         ],
         [
           0,
-          1600,
-          0,
+          1599,
+          1,
           0,
           0,
           0
@@ -226,9 +226,9 @@
           0
         ],
         [
-          3,
+          2,
           0,
-          0,
+          1,
           140,
           0,
           0
@@ -253,10 +253,10 @@
       "total_samples": 4974
     },
     "7": {
-      "accuracy": 0.9952,
-      "macro_precision": 0.9802,
-      "macro_recall": 0.9916,
-      "macro_f1": 0.9857,
+      "accuracy": 0.9948,
+      "macro_precision": 0.9821,
+      "macro_recall": 0.9903,
+      "macro_f1": 0.9862,
       "false_positive_rate": 0.0066,
       "per_class": {
         "Normal": {
@@ -272,35 +272,35 @@
         },
         "DoS": {
           "class_id": 1,
-          "tp": 1600,
+          "tp": 1599,
           "fp": 0,
-          "fn": 0,
+          "fn": 1,
           "tn": 3374,
           "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
+          "recall": 0.9994,
+          "f1": 0.9997,
           "support": 1600
         },
         "Fuzzing": {
           "class_id": 2,
           "tp": 499,
-          "fp": 1,
+          "fp": 7,
           "fn": 1,
-          "tn": 4473,
-          "precision": 0.998,
+          "tn": 4467,
+          "precision": 0.9862,
           "recall": 0.998,
-          "f1": 0.998,
+          "f1": 0.992,
           "support": 500
         },
         "Spoofing": {
           "class_id": 3,
-          "tp": 137,
-          "fp": 16,
-          "fn": 6,
-          "tn": 4815,
-          "precision": 0.8954,
-          "recall": 0.958,
-          "f1": 0.9257,
+          "tp": 136,
+          "fp": 12,
+          "fn": 7,
+          "tn": 4819,
+          "precision": 0.9189,
+          "recall": 0.951,
+          "f1": 0.9347,
           "support": 143
         },
         "Replay": {
@@ -330,15 +330,15 @@
         [
           2554,
           0,
-          1,
-          15,
+          5,
+          11,
           1,
           0
         ],
         [
           0,
-          1600,
-          0,
+          1599,
+          1,
           0,
           0,
           0
@@ -354,8 +354,8 @@
         [
           6,
           0,
-          0,
-          137,
+          1,
+          136,
           0,
           0
         ],
@@ -379,10 +379,10 @@
       "total_samples": 4974
     },
     "8": {
-      "accuracy": 0.9972,
-      "macro_precision": 0.9869,
-      "macro_recall": 0.9977,
-      "macro_f1": 0.9922,
+      "accuracy": 0.9968,
+      "macro_precision": 0.9891,
+      "macro_recall": 0.9965,
+      "macro_f1": 0.9927,
       "false_positive_rate": 0.0047,
       "per_class": {
         "Normal": {
@@ -398,35 +398,35 @@
         },
         "DoS": {
           "class_id": 1,
-          "tp": 1600,
+          "tp": 1599,
           "fp": 0,
-          "fn": 0,
+          "fn": 1,
           "tn": 3374,
           "precision": 1.0,
-          "recall": 1.0,
-          "f1": 1.0,
+          "recall": 0.9994,
+          "f1": 0.9997,
           "support": 1600
         },
         "Fuzzing": {
           "class_id": 2,
           "tp": 499,
-          "fp": 1,
+          "fp": 7,
           "fn": 1,
-          "tn": 4473,
-          "precision": 0.998,
+          "tn": 4467,
+          "precision": 0.9862,
           "recall": 0.998,
-          "f1": 0.998,
+          "f1": 0.992,
           "support": 500
         },
         "Spoofing": {
           "class_id": 3,
-          "tp": 142,
-          "fp": 10,
-          "fn": 1,
-          "tn": 4821,
-          "precision": 0.9342,
-          "recall": 0.993,
-          "f1": 0.9627,
+          "tp": 141,
+          "fp": 6,
+          "fn": 2,
+          "tn": 4825,
+          "precision": 0.9592,
+          "recall": 0.986,
+          "f1": 0.9724,
           "support": 143
         },
         "Replay": {
@@ -456,15 +456,15 @@
         [
           2559,
           0,
-          1,
-          10,
+          5,
+          6,
           1,
           0
         ],
         [
           0,
-          1600,
-          0,
+          1599,
+          1,
           0,
           0,
           0
@@ -480,8 +480,8 @@
         [
           1,
           0,
-          0,
-          142,
+          1,
+          141,
           0,
           0
         ],
@@ -506,32 +506,32 @@
     }
   },
   "test_metrics": {
-    "accuracy": 0.9966,
-    "macro_precision": 0.9886,
-    "macro_recall": 0.9882,
-    "macro_f1": 0.9882,
-    "false_positive_rate": 0.0039,
+    "accuracy": 0.9956,
+    "macro_precision": 0.9852,
+    "macro_recall": 0.9856,
+    "macro_f1": 0.9852,
+    "false_positive_rate": 0.0047,
     "per_class": {
       "Normal": {
         "class_id": 0,
-        "tp": 2562,
-        "fp": 7,
-        "fn": 10,
-        "tn": 2396,
-        "precision": 0.9973,
-        "recall": 0.9961,
-        "f1": 0.9967,
+        "tp": 2560,
+        "fp": 9,
+        "fn": 12,
+        "tn": 2394,
+        "precision": 0.9965,
+        "recall": 0.9953,
+        "f1": 0.9959,
         "support": 2572
       },
       "DoS": {
         "class_id": 1,
-        "tp": 1600,
+        "tp": 1599,
         "fp": 0,
-        "fn": 0,
+        "fn": 1,
         "tn": 3375,
         "precision": 1.0,
-        "recall": 1.0,
-        "f1": 1.0,
+        "recall": 0.9994,
+        "f1": 0.9997,
         "support": 1600
       },
       "Fuzzing": {
@@ -547,13 +547,13 @@
       },
       "Spoofing": {
         "class_id": 3,
-        "tp": 142,
-        "fp": 8,
-        "fn": 1,
-        "tn": 4824,
-        "precision": 0.9467,
-        "recall": 0.993,
-        "f1": 0.9693,
+        "tp": 140,
+        "fp": 11,
+        "fn": 3,
+        "tn": 4821,
+        "precision": 0.9272,
+        "recall": 0.979,
+        "f1": 0.9524,
         "support": 143
       },
       "Replay": {
@@ -581,17 +581,17 @@
     },
     "confusion_matrix": [
       [
-        2562,
+        2560,
         0,
-        1,
-        8,
+        0,
+        11,
         1,
         0
       ],
       [
         0,
-        1600,
-        0,
+        1599,
+        1,
         0,
         0,
         0
@@ -605,10 +605,10 @@
         0
       ],
       [
-        1,
+        3,
         0,
         0,
-        142,
+        140,
         0,
         0
       ],
@@ -634,20 +634,44 @@
   "latencies": {
     "Suppression_Brake": {
       "attack_type": 5,
+      "start_us": 8000000,
+      "first_malicious_frame_us": 8029944,
+      "first_alert_us": 8029944,
+      "latency_from_onset_us": 29944,
+      "latency_from_first_frame_us": 0,
+      "first_frame_detected": true,
+      "sustained_3frame_alert_us": 8069950,
+      "sustained_3frame_latency_ms": 69.95,
       "start_ms": 8000.0,
       "first_alert_ms": 8029.944,
-      "latency_ms": 29.94,
+      "latency_ms": 29.944,
       "detected": true
     },
     "DoS_Flood": {
       "attack_type": 1,
+      "start_us": 1000000,
+      "first_malicious_frame_us": 1000000,
+      "first_alert_us": 1000500,
+      "latency_from_onset_us": 500,
+      "latency_from_first_frame_us": 500,
+      "first_frame_detected": false,
+      "sustained_3frame_alert_us": 1001500,
+      "sustained_3frame_latency_ms": 1.5,
       "start_ms": 1000.0,
-      "first_alert_ms": 1000.0,
-      "latency_ms": 0.0,
+      "first_alert_ms": 1000.5,
+      "latency_ms": 0.5,
       "detected": true
     },
     "Fuzzing_Random": {
       "attack_type": 2,
+      "start_us": 2500000,
+      "first_malicious_frame_us": 2500000,
+      "first_alert_us": 2500000,
+      "latency_from_onset_us": 0,
+      "latency_from_first_frame_us": 0,
+      "first_frame_detected": true,
+      "sustained_3frame_alert_us": 2504000,
+      "sustained_3frame_latency_ms": 4.0,
       "start_ms": 2500.0,
       "first_alert_ms": 2500.0,
       "latency_ms": 0.0,
@@ -655,6 +679,14 @@
     },
     "Spoofing_Brake": {
       "attack_type": 3,
+      "start_us": 4500000,
+      "first_malicious_frame_us": 4500000,
+      "first_alert_us": 4500000,
+      "latency_from_onset_us": 0,
+      "latency_from_first_frame_us": 0,
+      "first_frame_detected": true,
+      "sustained_3frame_alert_us": 4563000,
+      "sustained_3frame_latency_ms": 63.0,
       "start_ms": 4500.0,
       "first_alert_ms": 4500.0,
       "latency_ms": 0.0,
@@ -662,6 +694,14 @@
     },
     "Replay_Steering": {
       "attack_type": 4,
+      "start_us": 6500000,
+      "first_malicious_frame_us": 6500000,
+      "first_alert_us": 6500000,
+      "latency_from_onset_us": 0,
+      "latency_from_first_frame_us": 0,
+      "first_frame_detected": true,
+      "sustained_3frame_alert_us": 6519987,
+      "sustained_3frame_latency_ms": 19.987,
       "start_ms": 6500.0,
       "first_alert_ms": 6500.0,
       "latency_ms": 0.0,
@@ -669,15 +709,20 @@
     }
   },
   "cpu_latencies": {
-    "avg_us": 217.774,
-    "worst_case_us": 410.902,
-    "p99_us": 290.694
+    "avg_us": 267.977,
+    "worst_case_us": 1393.841,
+    "p99_us": 450.394
   },
   "throughput": {
-    "frames_per_sec": 64091.5,
+    "frames_per_sec": 58367.6,
     "total_frames": 4915,
-    "elapsed_sec": 0.0767,
-    "per_frame_overhead_us": 15.6
+    "elapsed_sec": 0.0842,
+    "per_frame_overhead_us": 17.13,
+    "feature_extraction_us": 16.84,
+    "vectorized_inference_us": 0.29,
+    "c_inference_ns": 4.35,
+    "c_throughput_fps": 229900000.0,
+    "execution_tiers_note": "Throughput of ~50,000-68,000 fps (14-19 us/frame) reflects full end-to-end Python pipeline execution (feature extraction + window rate updates + vectorized inference). In embedded deployment, the exported ANSI C decision tree achieves 4.35 ns/frame (>229.9M fps). The ~217 us benchmark represents unvectorized single-vector Python/scikit-learn function call overhead."
   },
   "ablation_results": {
     "Config_A_PerFrameOnly": {
@@ -715,8 +760,8 @@
       ],
       "accuracy": 0.9956,
       "macro_f1": 0.9852,
-      "macro_recall": 0.9857,
-      "false_positive_rate": 0.0051
+      "macro_recall": 0.9856,
+      "false_positive_rate": 0.0047
     },
     "Config_C_Complete_FullFeatures": {
       "num_features": 14,
@@ -738,34 +783,46 @@
       ],
       "accuracy": 0.9956,
       "macro_f1": 0.9852,
-      "macro_recall": 0.9857,
-      "false_positive_rate": 0.0051
+      "macro_recall": 0.9856,
+      "false_positive_rate": 0.0047
     }
   },
   "unseen_results": {
     "Excluded_DoS": {
       "excluded_class_id": 1,
       "unseen_samples": 1600,
+      "dt_alone_recall": 1.0,
+      "ad_alone_recall": 1.0,
+      "dual_engine_recall": 1.0,
       "flagged_as_anomalous": 1600,
       "anomaly_recall": 1.0
     },
     "Excluded_Fuzzing": {
       "excluded_class_id": 2,
       "unseen_samples": 500,
-      "flagged_as_anomalous": 43,
-      "anomaly_recall": 0.086
+      "dt_alone_recall": 0.086,
+      "ad_alone_recall": 1.0,
+      "dual_engine_recall": 1.0,
+      "flagged_as_anomalous": 500,
+      "anomaly_recall": 1.0
     },
     "Excluded_Spoofing": {
       "excluded_class_id": 3,
       "unseen_samples": 143,
-      "flagged_as_anomalous": 2,
-      "anomaly_recall": 0.014
+      "dt_alone_recall": 0.0,
+      "ad_alone_recall": 0.958,
+      "dual_engine_recall": 0.958,
+      "flagged_as_anomalous": 137,
+      "anomaly_recall": 0.958
     },
     "Excluded_Replay": {
       "excluded_class_id": 4,
       "unseen_samples": 100,
-      "flagged_as_anomalous": 0,
-      "anomaly_recall": 0.0
+      "dt_alone_recall": 0.0,
+      "ad_alone_recall": 1.0,
+      "dual_engine_recall": 1.0,
+      "flagged_as_anomalous": 100,
+      "anomaly_recall": 1.0
     }
   },
   "requirements_summary": [
@@ -773,7 +830,7 @@
       "id": "REQ-01",
       "threat": "DoS",
       "target": "Latency <= 50 ms",
-      "actual": "0.00 ms",
+      "actual": "0.50 ms",
       "pass": true
     },
     {
@@ -787,7 +844,7 @@
       "id": "REQ-03",
       "threat": "Spoofing",
       "target": "Recall >= 90%",
-      "actual": "99.30%",
+      "actual": "97.90%",
       "pass": true
     },
     {
@@ -815,14 +872,14 @@
       "id": "REQ-07",
       "threat": "False Alarms",
       "target": "FPR < 1.0%",
-      "actual": "0.390%",
+      "actual": "0.470%",
       "pass": true
     },
     {
       "id": "REQ-08",
       "threat": "Throughput",
       "target": ">= 10000 fps",
-      "actual": "64091.5 fps",
+      "actual": "58367.6 fps",
       "pass": true
     },
     {

@@ -46,12 +46,12 @@ class FrameMonitor:
         timestamp_us: int,
         dlc: int,
         data: bytes,
-    ) -> tuple[int, int, int, int, int, int]:
+    ) -> tuple[int, int, int, int, int, int, Optional[bytes]]:
         """Update tracker with newly received frame and return atomic metrics.
 
         Returns:
             (inter_arrival_us, period_deviation_us, payload_delta,
-             payload_change_count, id_seen_before, dlc_mismatch)
+             payload_change_count, id_seen_before, dlc_mismatch, prev_payload)
         """
         # 1. Check if ID is known from DBC baseline
         id_seen_before = 1 if arbitration_id in self.network_defs else 0
@@ -64,7 +64,6 @@ class FrameMonitor:
         if arbitration_id in self.last_timestamp_us:
             inter_arrival_us = timestamp_us - self.last_timestamp_us[arbitration_id]
         else:
-            # First arrival: default to expected period or 0
             inter_arrival_us = self.expected_periods_us.get(arbitration_id, 0)
 
         expected_p = self.expected_periods_us.get(arbitration_id, 0)
@@ -73,7 +72,7 @@ class FrameMonitor:
         else:
             period_deviation_us = 0
 
-        # 4. Payload delta (first bytes difference) and Hamming change count
+        # 4. Payload delta and Hamming change count against previous payload
         prev_data = self.last_payload.get(arbitration_id)
         if prev_data is not None and len(prev_data) > 0 and len(data) > 0:
             payload_delta = abs(int(data[0]) - int(prev_data[0]))
@@ -94,7 +93,6 @@ class FrameMonitor:
 
         q = self.payload_history[arbitration_id]
         if len(q) >= self.recent_buffer_size:
-            # Add payload that aged out of the recent buffer into historical set for O(1) replay check
             self.historical_payload_set[arbitration_id].add(q[-self.recent_buffer_size])
         q.append(data)
 
@@ -105,4 +103,5 @@ class FrameMonitor:
             change_count,
             id_seen_before,
             dlc_mismatch,
+            prev_data,
         )

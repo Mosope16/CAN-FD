@@ -55,7 +55,10 @@ class SlidingWindowAggregator:
             return 0, 0
 
         # O(1) membership check in historical set
-        if current_payload in historical_set:
+        # Replay indicates matching historical telemetry while differing from immediate predecessor
+        # (Matching immediate predecessor represents standard signal continuity, e.g. brake=0%)
+        is_continuity = (prev_payload is not None and current_payload == prev_payload)
+        if (not is_continuity) and (current_payload in historical_set):
             return 1000, 1
 
         # Otherwise calculate byte similarity to immediate previous frame

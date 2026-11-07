@@ -1,11 +1,11 @@
 Threat_ID,Threat_Name,Cybersecurity_Goal,Requirement_ID,Requirement_Description,Design_Component,Verification_ID,Verification_Description,Pass_Criteria,Status,Actual_Result
-T01,Denial of Service,CG-01,REQ-01,Detect DoS attack within 50 ms,src/monitor/frame_monitor.py;src/detection/decision_tree.py,TST-001,DoS detection latency evaluation,Latency <= 50 ms,PASS,0.00 ms
+T01,Denial of Service,CG-01,REQ-01,Detect DoS attack within 50 ms,src/monitor/frame_monitor.py;src/detection/decision_tree.py,TST-001,DoS detection latency evaluation,Latency <= 50 ms,PASS,0.50 ms
 T02,Fuzzing,CG-02,REQ-02,Detect fuzzing with recall >= 95%,src/features/frame_features.py;src/detection/decision_tree.py,TST-002,Fuzzing recall on test set,Recall >= 95%,PASS,100.00%
-T03,Spoofing,CG-03,REQ-03,Detect spoofing with recall >= 90%,src/features/window_features.py;src/detection/decision_tree.py,TST-003,Spoofing recall on test set,Recall >= 90%,PASS,99.30%
+T03,Spoofing,CG-03,REQ-03,Detect spoofing with recall >= 90%,src/features/window_features.py;src/detection/decision_tree.py,TST-003,Spoofing recall on test set,Recall >= 90%,PASS,97.90%
 T04,Replay,CG-04,REQ-04,Detect replay attacks with recall >= 90%,src/features/window_features.py;src/detection/decision_tree.py,TST-004,Replay recall on test set,Recall >= 90%,PASS,94.00%
 T05,Suppression,CG-05,REQ-05,Detect message suppression within 100 ms of deadline,src/monitor/protocol_monitor.py;src/features/feature_pipeline.py,TST-005,Suppression deadline latency,Latency <= 100 ms,PASS,29.94 ms
 T06,Bit Corruption,CG-06,REQ-06,Detect 100% of defined protocol corruption test cases,src/protocol/validator.py;src/protocol/crc_engine.py,TST-006,Protocol bit-level corruption test suite,100% of defined cases detected,PASS,100.0%
-,False Alarms,CG-01..05,REQ-07,Maintain False Positive Rate < 1% on benign traffic,src/detection/decision_tree.py;src/evaluation/metrics.py,TST-007,Benign validation set false positive rate,FPR < 1.0%,PASS,0.390%
-,Resource Exhaustion,Non-Functional,REQ-08,Sustain >= 10000 frames/sec simulation throughput,src/features/feature_pipeline.py;src/detection/export_c.py,TST-008,Execution throughput & timing benchmark,Throughput >= 10000 fps,PASS,64091.5 fps
+,False Alarms,CG-01..05,REQ-07,Maintain False Positive Rate < 1% on benign traffic,src/detection/decision_tree.py;src/evaluation/metrics.py,TST-007,Benign validation set false positive rate,FPR < 1.0%,PASS,0.470%
+,Resource Exhaustion,Non-Functional,REQ-08,Sustain >= 10000 frames/sec simulation throughput,src/features/feature_pipeline.py;src/detection/export_c.py,TST-008,Execution throughput & timing benchmark,Throughput >= 10000 fps,PASS,58367.6 fps
 ,Non-Determinism,Architecture,REQ-09,100% reproducible results for identical random seeds,src/generator/traffic_generator.py,TST-009,Bit-for-bit repeatability test,100% hash match,PASS,100.0%
 ,Model Divergence,Architecture,REQ-10,Python and C-style inference agree on 100% of samples,src/detection/export_c.py,TST-010,C-to-Python model comparison test,100% agreement,PASS,100.00%

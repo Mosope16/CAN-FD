@@ -102,6 +102,7 @@ class FeaturePipeline:
                 p_change,
                 id_seen,
                 dlc_mis,
+                prev_data,
             ) = self.frame_monitor.update_frame(
                 arbitration_id=frame.arbitration_id,
                 timestamp_us=t_us,
@@ -114,8 +115,7 @@ class FeaturePipeline:
 
             # 4. Extract replay similarity against history (O(1) hash check)
             hist_set = self.frame_monitor.historical_payload_set.get(frame.arbitration_id, set())
-            prev_p = self.frame_monitor.last_payload.get(frame.arbitration_id)
-            sim, dups = self.sliding_window.compute_replay_metrics(frame.data, hist_set, prev_p)
+            sim, dups = self.sliding_window.compute_replay_metrics(frame.data, hist_set, prev_data)
 
             # 5. Extract protocol errors & missing counts in window
             proto_errs, missing_cnt = self.protocol_monitor.get_window_counts(t_us)
