@@ -1,5 +1,8 @@
-# CAN-FD Bit-Stream IDS: Verification and Evaluation Evidence Report
+# CAN-FD Bit-Stream IDS: ISO/SAE 21434-Aligned Verification and Evaluation Report
 **Standard Alignment:** ISO/SAE 21434:2021 (Road Vehicles — Cybersecurity Engineering), Clauses 10, 11, and 14
+
+> [!NOTE] Scope and Regulatory Disclaimer
+> This report documents technical verification and validation evidence structured according to the engineering methodologies of ISO/SAE 21434:2021 (Clause 10 Product Development, Clause 11 Cybersecurity Validation, and Clause 14 Traceability). While all ten project-defined cybersecurity requirements (REQ-01 through REQ-10) have been empirically verified in software simulation, this prototype does not constitute formal ISO/SAE 21434 third-party certification or UNECE R155 type approval, which necessitate full vehicle integration, physical transceiver hardware-in-the-loop (HIL) testing, and accredited organizational audit.
 
 ---
 
@@ -13,10 +16,10 @@ All **ten cybersecurity requirements (REQ-01 through REQ-10)** derived from the 
 * **Overall Classification Accuracy:** $99.56\%$
 * **Macro F1-Score:** $0.9852$
 * **Benign False Positive Rate (FPR):** $0.47\%$ (well below the $1.0\%$ threshold)
-* **Sustained Simulation Throughput:** $64,071.5$ frames/sec ($15.61\ \mu\text{s}$ total pipeline overhead per frame)
-* **Embedded Microcontroller Execution:** $4.51\ \text{ns}$ ($0.0045\ \mu\text{s}$) per frame in standalone compiled ANSI C ($221.8\text{M}$ frames/sec)
-* **C-Inference Conformance:** $100.00\%$ bit-for-bit agreement between scikit-learn Python and compiled ANSI C
-* **Protocol-Level Bit Corruption Detection:** $100.0\%$ detection across all defined physical layer corruption test vectors
+* **Sustained Simulation Throughput:** $62,138.0$ frames/sec ($16.09\ \mu\text{s}$ total pipeline overhead per frame)
+* **Embedded Microcontroller Execution:** $5.69\ \text{ns}$ ($0.0057\ \mu\text{s}$) per frame in standalone compiled ANSI C ($175.8\text{M}$ frames/sec) with active compiler barriers and observable checksum accumulation.
+* **C-Inference Conformance:** $100.00\%$ bit-for-bit agreement between scikit-learn Python and compiled ANSI C across all test samples and 500 boundary vectors.
+* **Protocol-Level Bit Corruption Detection:** $100.0\%$ detection across all defined physical layer corruption test vectors.
 * **Zero-Day / Unseen Attack Defense:** Dual-Engine IDS architecture (Supervised Decision Tree + Normal-Only Anomaly Detector) elevates unseen attack recall to $100\%$ on DoS, $100\%$ on Fuzzing, $95.80\%$ on Spoofing, and $100\%$ on Replay.
 
 ---
@@ -32,7 +35,7 @@ All **ten cybersecurity requirements (REQ-01 through REQ-10)** derived from the 
 | **REQ-05** | Message Suppression | `ProtocolMonitor` Deadlines | Latency $\le 100$ ms | **$29.94$ ms** ($69.95$ ms sustained 3-deadline) | **PASS** |
 | **REQ-06** | Bit-Level Corruption | `ProtocolValidator` | $100\%$ of defined test suite | **$100.0\%$** ($5/5$ test vectors) | **PASS** |
 | **REQ-07** | False Alarms | Full Pipeline Baseline | False Positive Rate $< 1.0\%$ | **$0.470\%$** ($12/2572$ normal frames) | **PASS** |
-| **REQ-08** | Throughput & Overhead | Integer Feature Engine | $\ge 10,000$ frames/sec | **$64,071.5$ frames/sec** ($15.61\ \mu\text{s}$/frame) | **PASS** |
+| **REQ-08** | Throughput & Overhead | Integer Feature Engine | $\ge 10,000$ frames/sec | **$62,138.0$ frames/sec** ($16.09\ \mu\text{s}$/frame) | **PASS** |
 | **REQ-09** | Determinism & Repeatability | Simulation Clockwork | $100\%$ reproducible outputs | **$100.0\%$** bit-for-bit identical hashes | **PASS** |
 | **REQ-10** | Target Conformance | `CCodeExporter` ANSI C | $100\%$ C/Python agreement | **$100.00\%$** ($4,975/4,975$ test samples) | **PASS** |
 
@@ -65,9 +68,8 @@ $$\begin{pmatrix}
 0 & 0 & 0 & 0 & 0 & 60
 \end{pmatrix}$$
 
-* Rows represent ground truth classes; columns represent predicted classes ($0$ to $5$).
 * Normal traffic suffered only $12$ false positives out of $2,572$ samples ($0.47\%$).
-* Replay achieved $94.00\%$ recall, successfully detecting historical injections while distinguishing benign stationary signals (such as pedal position at $0\%$) via the dual-condition temporal continuity check.
+* Replay achieved $94.00\%$ recall, successfully detecting historical injections while distinguishing benign stationary signals via the dual-condition continuity check.
 
 ---
 
@@ -75,7 +77,7 @@ $$\begin{pmatrix}
 
 ### 4.1 Resolution and Qualification Latency
 
-To resolve previous ambiguity regarding zero-millisecond detection, timestamps are captured in integer microsecond resolution. Detection is decomposed into:
+Detection is decomposed into:
 1. **First-Frame Detection Delay ($\Delta T_{\text{first}}$):** Delay between attack schedule onset ($T_{\text{start}}$) and the first alert produced by the IDS ($T_{\text{first\_alert}}$).
 2. **First-Frame Qualification Flag:** Whether the very first malicious frame injected on the bus was detected.
 3. **Sustained Qualification Delay ($\Delta T_{\text{sustained}}$):** Time until $K=3$ consecutive frames of the attack stream are verified.
@@ -88,32 +90,37 @@ To resolve previous ambiguity regarding zero-millisecond detection, timestamps a
 | **Replay (Steering)** | `0x103` | $6,500,000\ \mu\text{s}$ | $6,500,000\ \mu\text{s}$ | $6,500,000\ \mu\text{s}$ | **$0\ \mu\text{s}$** ($0.00$ ms) | Yes | **$19.99$ ms** | N/A | **PASS** |
 | **Suppression (Brake)** | `0x102` | $8,000,000\ \mu\text{s}$ | N/A (silence) | $8,029,944\ \mu\text{s}$ | **$29,944\ \mu\text{s}$** ($29.94$ ms) | Yes (deadline) | **$69.95$ ms** | $\le 100$ ms | **PASS** |
 
-* **Zero-Delay Clarification:** In Fuzzing, Spoofing, and Replay, the attack generator schedules the first injected frame at exactly $T_{\text{start}}$. Because the detector classifies this first frame immediately upon arrival, the delay from first malicious frame to first alert is $0\ \mu\text{s}$. In contrast, DoS requires two frames ($500\ \mu\text{s}$) for the sliding window rate to surge, yielding an onset delay of $500\ \mu\text{s}$ ($0.50$ ms).
-* **Suppression Detection:** When `0x102` (nominal period $20$ ms) is suppressed at $8.0$s, its arrival deadline expires at $t = 8.0\text{s} + 1.5 \times 20\text{ms} = 8.030\text{s}$. The next periodic frame arriving on the bus evaluates `check_deadlines()`, emitting an alert at $29.94$ ms, well within the $100$ ms requirement.
+#### Engineering Explanation of Latency Mechanics:
+* **DoS Flooding (0.50 ms / 1st Frame NO):** When the first flooding frame arrives at $t=1,000,000\ \mu\text{s}$, its inter-arrival cannot yet be computed (no previous frame for ID `0x050`). The second frame arrives $500\ \mu\text{s}$ later at $t=1,000,500\ \mu\text{s}$, establishing `inter_arrival = 500 us` and triggering the `total_bus_rate` surge. The alert fires on the 2nd frame, giving an exact onset latency of $500\ \mu\text{s}$ ($0.50$ ms) and sustained qualification ($K=3$) in $1.50$ ms.
+* **Fuzzing, Spoofing, Replay (0 µs / 1st Frame YES):** In these scenarios, the first malicious frame is scheduled at $T_{\text{start}}$. For Fuzzing, the random ID (`id_seen_before == 0`) or DLC mismatch immediately flags the frame. For Spoofing, the instant jump to $100\%$ pedal position (`payload_delta == 100`) flags the frame immediately. For Replay, the payload exists in `historical_payload_set` while differing from the immediate predecessor. Thus, $T_{\text{alert}} - T_{\text{first\_frame}} = 0\ \mu\text{s}$.
+* **Suppression (29.94 ms):** When `0x102` (nominal period $20$ ms) is silenced at $t = 8.0$s, its deadline expires at $t = 8.0\text{s} + 1.5 \times 20\text{ms} = 8.030\text{s}$. The very next periodic frame on the bus evaluates `check_deadlines()` and emits an alert at $29.94$ ms.
 
-### 4.2 Computational Execution Profiling (Throughput vs. Inference Discrepancy Resolved)
+---
 
-To resolve the discrepancy between single-vector CPU inference and pipeline throughput, the execution architecture is divided into three distinct execution tiers:
+### 4.2 Computational Execution Profiling
 
-1. **Embedded Microcontroller Bare-Metal Inference (Production Deployment Target):**
-   * Generated standalone ANSI C code (`models/exported/classifier.c`).
-   * Evaluated via native benchmark (`models/exported/c_bench`) over $1,000,000$ iterations.
-   * **Latency:** **$4.51\ \text{ns}$ ($0.0045\ \mu\text{s}$)** per frame.
-   * **Throughput:** **$221,800,000$ frames/second**.
-   * Suitable for hard real-time execution on automotive MCUs (e.g., ARM Cortex-R5 or Infineon AURIX TC3xx).
+The computational performance is separated into three distinct execution tiers:
+
+1. **Embedded Microcontroller Bare-Metal Inference Target (`models/exported/c_bench`):**
+   * Standalone compiled ANSI C function [`classify_canfd_frame`](file:///home/sope/Projects/CAN-FD/models/exported/classifier.c).
+   * Evaluated across $2,000,000$ timed iterations following $100,000$ warm-up iterations.
+   * Cycles through 16 distinct feature vectors covering Normal and all 5 attack classes to exercise diverse branch paths.
+   * Compiles with GCC `16.2.1` under `-O2` with inline assembly barriers (`__asm__ __volatile__("" : "+r"(checksum) : : "memory");`) and observable prediction checksum (`checksum = 1625000`) preventing dead-code elimination.
+   * **Host Hardware:** 11th Gen Intel(R) Core(TM) i5-1155G7 @ 2.50GHz (up to 4.50GHz).
+   * **Measured Latency:** **$5.69\ \text{ns}$ ($0.0057\ \mu\text{s}$)** per frame.
+   * **Throughput:** **$175.8\text{M}$ frames/second**.
 
 2. **Full End-to-End Python Pipeline Throughput (Host Simulation Environment):**
-   * Features extracted frame-by-frame via `FeaturePipeline` (atomic metrics + sliding window updates + hash-table lookups + deadline checking) followed by vectorized model inference.
-   * Total runtime for $4,915$ frames: $76.7$ ms.
-   * **Feature Extraction Overhead:** **$15.32\ \mu\text{s}$** per frame.
-   * **Vectorized Model Inference:** **$0.28\ \mu\text{s}$** per frame.
-   * **Total Pipeline Overhead:** **$15.61\ \mu\text{s}$** per frame.
-   * **Sustained Simulation Throughput:** **$64,071.5$ frames/second** (exceeding REQ-08 target of $10,000$ fps by $6.4\times$).
+   * Processes the full sequential stream through `FeaturePipeline` (atomic metrics + sliding window updates + bounded hash lookups + deadline checking) followed by vectorized model inference.
+   * **Feature Extraction Overhead:** **$15.80\ \mu\text{s}$** per frame.
+   * **Vectorized Model Inference:** **$0.30\ \mu\text{s}$** per frame.
+   * **Total Pipeline Overhead:** **$16.09\ \mu\text{s}$** per frame.
+   * **Sustained Simulation Throughput:** **$62,138.0$ frames/second** (exceeding REQ-08 target of $10,000$ fps by $6.2\times$).
 
 3. **Python Unvectorized Single-Call Overhead (Testing Artifact):**
-   * Measured by calling `model.predict(single_vector)` in an unvectorized loop.
-   * **Average Execution Time:** **$231.50\ \mu\text{s}$** per call (WCET: $438.95\ \mu\text{s}$).
-   * **Root Cause:** This latency is entirely driven by Python interpreter dispatch, scikit-learn Cython wrapper initialization, NumPy dimensional type checks, and dynamic memory allocation for single-row arrays. It does **not** reflect algorithm complexity or production embedded execution.
+   * Measured by invoking `model.predict(single_vector)` in an unvectorized loop.
+   * **Average Execution Time:** **$232.22\ \mu\text{s}$** per call (WCET: $431.92\ \mu\text{s}$).
+   * **Root Cause:** Driven by Python interpreter function call dispatch, scikit-learn Cython wrapper initialization, NumPy dimensional type checks, and dynamic memory allocation for single-row arrays. It does **not** reflect algorithm complexity or production embedded execution.
 
 ---
 
@@ -151,7 +158,7 @@ An ablation experiment was conducted to assess the marginal contribution of temp
 
 ## 7. Unseen Attack Generalisation & Dual-Engine Architecture
 
-To address the vulnerability of supervised classifiers to unfamiliar attack vectors, four leave-one-out experiments were conducted. In each trial, one attack category was completely omitted from training. The test set was then evaluated across:
+To evaluate model defensibility when confronted with unfamiliar or unmodeled attack categories, four leave-one-out experiments were conducted. In each trial, one attack category was completely omitted from training. The test set was then evaluated across:
 1. **Supervised Decision Tree Alone** (trained with the attack omitted).
 2. **Complementary Normal-Only Anomaly Detector Alone** (`NormalTrafficAnomalyDetector` trained strictly on benign Class 0 data).
 3. **Dual-Engine IDS Architecture** (Supervised DT + Normal-Only Anomaly Detector operating in tandem).
@@ -163,16 +170,22 @@ To address the vulnerability of supervised classifiers to unfamiliar attack vect
 | **Excluded Spoofing (Brake)** | $0.00\%$ | $95.80\%$ | **$95.80\%$** | $143$ |
 | **Excluded Replay (Steering)** | $0.00\%$ | $100.00\%$ | **$100.00\%$** | $100$ |
 
-**Key Research Findings:**
-* **Standalone Decision Tree Limitation:** A supervised classifier trained without Fuzzing achieves only $8.60\%$ recall, and without Spoofing/Replay achieves $0.00\%$ recall, classifying unfamiliar frames into benign leaves.
-* **Dual-Engine Defense:** The complementary anomaly detector establishes multi-dimensional isolation forest density boundaries and statistical envelope thresholds on normal traffic. When integrated as a Dual-Engine IDS, unseen attack detection surges to **$100\%$ on DoS, $100\%$ on Fuzzing, $95.80\%$ on Spoofing, and $100\%$ on Replay**.
+**Methodology & Dataset Decoupling:**
+* The anomaly detector is trained **strictly on Class 0 benign training data (`y_train == 0`)**.
+* Feature envelopes (`max_bus_rate`, `feature_min`, `feature_max`) are derived solely from training samples.
+* Contamination ($0.001$) and envelope calibration are verified on the validation split (`val.csv`), achieving $0.17\%$ False Positive Rate on clean benign validation traffic.
+* The test episode (`test.csv`) is never observed during training or threshold tuning.
 
 ---
 
-## 8. ANSI C Embedded Code Generation & Conformance (REQ-10)
+## 8. Verification Coverage & Test Suite Maturity
 
-The trained scikit-learn decision tree was automatically compiled into standalone ANSI C (`models/exported/classifier.c` and `classifier.h`).
+The automated test suite now comprises **39 automated tests** executed in $7.76$ seconds across 14 dedicated test modules:
 
-* **Footprint:** The generated `classify_canfd_frame` function consists of nested integer `if/else` comparisons without standard library runtime dependencies, floating-point math, or dynamic heap allocations (`malloc`).
-* **Binary Size:** Compiled C binary is $< 18\ \text{KB}$ with `-O2` optimization on x86_64 GCC.
-* **Conformance Verification:** Across all $4,975$ test vectors in the independent test split, the compiled ANSI C executable achieved **$100.00\%$ prediction identity** ($0$ divergent classifications) relative to the Python scikit-learn implementation.
+1. **Physical Protocol Layer:** CRC-17 / CRC-21 calculation, ISO dynamic bit stuffing and destuffing, fixed stuff bit insertion, frame serialization and decoding, protocol validator rejection of CRC bit flips, stuff violations, and ACK delimiter corruptions.
+2. **Attacks & Signal Modeling:** Physics-based continuous signal generation, discrete-event injection of DoS, Fuzzing, Spoofing, Replay, and Suppression.
+3. **State Tracking & Features:** Atomic per-ID timing, bounded historical buffers, sliding-window arrival rates, $O(1)$ hash lookups for replay detection, integer-only feature vector assembly.
+4. **Supervisory Monitoring:** Sliding-window error pruning, deadline expiration calculation, missing-message alerts.
+5. **Anti-Contamination & Decoupling:** Verification that feature extraction produces identical vectors when ground-truth labels and attack metadata are purged; verification that train, val, and test splits have distinct variations.
+6. **Concurrent Attacks & Stability:** Verification that overlapping attacks (DoS + Spoofing, Fuzzing + Suppression) are detected without state corruption; 20-second continuous simulation stability with bounded deques and sets.
+7. **Embedded Target Equivalence:** Clean compilation of exported C under `-Wall -Wextra -Werror`, bit-for-bit equivalence between C and Python across $4,975$ test vectors and $500$ random and extreme boundary vectors (`INT64_MAX`, `INT64_MIN`).

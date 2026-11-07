@@ -44,6 +44,9 @@ def train_and_select_best_model(
 
         depth_reports[depth] = val_metrics
 
+        # Model selection: candidate depths are evaluated in ascending order.
+        # Strict inequality (macro_f1 > best_f1) acts as an explicit tie-breaker,
+        # favoring shallower, more parsimonious trees when validation F1 scores tie.
         if macro_f1 > best_f1:
             best_f1 = macro_f1
             best_model = dt

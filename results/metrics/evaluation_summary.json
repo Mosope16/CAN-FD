@@ -709,20 +709,20 @@
     }
   },
   "cpu_latencies": {
-    "avg_us": 267.977,
-    "worst_case_us": 1393.841,
-    "p99_us": 450.394
+    "avg_us": 232.219,
+    "worst_case_us": 431.922,
+    "p99_us": 369.449
   },
   "throughput": {
-    "frames_per_sec": 58367.6,
+    "frames_per_sec": 62138.0,
     "total_frames": 4915,
-    "elapsed_sec": 0.0842,
-    "per_frame_overhead_us": 17.13,
-    "feature_extraction_us": 16.84,
-    "vectorized_inference_us": 0.29,
-    "c_inference_ns": 4.35,
-    "c_throughput_fps": 229900000.0,
-    "execution_tiers_note": "Throughput of ~50,000-68,000 fps (14-19 us/frame) reflects full end-to-end Python pipeline execution (feature extraction + window rate updates + vectorized inference). In embedded deployment, the exported ANSI C decision tree achieves 4.35 ns/frame (>229.9M fps). The ~217 us benchmark represents unvectorized single-vector Python/scikit-learn function call overhead."
+    "elapsed_sec": 0.0791,
+    "per_frame_overhead_us": 16.09,
+    "feature_extraction_us": 15.8,
+    "vectorized_inference_us": 0.3,
+    "c_inference_ns": 4.34,
+    "c_throughput_fps": 230000000.0,
+    "execution_tiers_note": "Throughput of ~50,000-68,000 fps (14-19 us/frame) reflects full end-to-end Python pipeline execution (feature extraction + window rate updates + vectorized inference). In embedded deployment, the exported ANSI C decision tree achieves 4.34 ns/frame (>230.0M fps). The ~217 us benchmark represents unvectorized single-vector Python/scikit-learn function call overhead."
   },
   "ablation_results": {
     "Config_A_PerFrameOnly": {
@@ -879,7 +879,7 @@
       "id": "REQ-08",
       "threat": "Throughput",
       "target": ">= 10000 fps",
-      "actual": "58367.6 fps",
+      "actual": "62138.0 fps",
       "pass": true
     },
     {

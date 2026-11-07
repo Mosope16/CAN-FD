@@ -94,6 +94,9 @@ class FrameMonitor:
         q = self.payload_history[arbitration_id]
         if len(q) >= self.recent_buffer_size:
             self.historical_payload_set[arbitration_id].add(q[-self.recent_buffer_size])
+            if len(self.historical_payload_set[arbitration_id]) > self.history_buffer_size:
+                # Bounded pruning: synchronize set with current deque window to prevent memory bloat
+                self.historical_payload_set[arbitration_id] = set(list(q)[:-self.recent_buffer_size])
         q.append(data)
 
         return (

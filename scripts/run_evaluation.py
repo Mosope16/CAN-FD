@@ -35,7 +35,7 @@ from scripts.generate_dataset import generate_simulation_episode
 
 def main() -> None:
     print("=" * 75)
-    print("   CAN-FD IDS: COMPREHENSIVE ISO/SAE 21434 VERIFICATION ENGINE")
+    print("   CAN-FD IDS: ISO/SAE 21434-Aligned Verification & Evaluation Framework")
     print("=" * 75)
 
     os.makedirs("results/metrics", exist_ok=True)
@@ -251,7 +251,7 @@ def main() -> None:
     ]
 
     print("\n" + "=" * 75)
-    print("   ISO/SAE 21434 REQUIREMENTS COMPLIANCE SUMMARY")
+    print("   ISO/SAE 21434-ALIGNED REQUIREMENTS COMPLIANCE SUMMARY")
     print("=" * 75)
     for r in req_evaluations:
         status_str = "PASS [OK]" if r["pass"] else "FAIL [X]"
