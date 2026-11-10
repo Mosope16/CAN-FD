@@ -23,14 +23,14 @@ Unlike conventional CAN IDSs that only examine high-level arbitration IDs, this 
 
 | Requirement ID | Threat Scenario | Verification Method | Initial Target Metric | Actual Result | Status |
 |:---:|:---|:---|:---|:---:|:---:|
-| **REQ-01** | Denial of Service (DoS) | Detection Latency Benchmark | Latency $\le 50$ ms | **$0.00$ ms** | **PASS** |
+| **REQ-01** | Denial of Service (DoS) | Detection Latency Benchmark | Latency $\le 50$ ms | **$0.50$ ms** | **PASS** |
 | **REQ-02** | Bus Fuzzing | Classification Recall | Recall $\ge 95\%$ | **$100.00\%$** | **PASS** |
-| **REQ-03** | Spoofing / Masquerade | Classification Recall | Recall $\ge 90\%$ | **$99.30\%$** | **PASS** |
+| **REQ-03** | Spoofing / Masquerade | Classification Recall | Recall $\ge 90\%$ | **$97.90\%$** | **PASS** |
 | **REQ-04** | Message Replay | Classification Recall | Recall $\ge 90\%$ | **$94.00\%$** | **PASS** |
 | **REQ-05** | Message Suppression | Deadline Monitor Latency | Latency $\le 100$ ms | **$29.94$ ms** | **PASS** |
-| **REQ-06** | Protocol Corruption | Physical Disturbance Test Suite | $100\%$ of defined test cases | **$100.0\%$** ($5/5$) | **PASS** |
-| **REQ-07** | False Alarms | Benign Traffic Evaluation | False Positive Rate $< 1.0\%$ | **$0.39\%$** | **PASS** |
-| **REQ-08** | Throughput & Overhead | Sustained Execution Benchmark | $\ge 10,000$ frames/sec | **$64,091$ fps** | **PASS** |
+| **REQ-06** | Protocol Corruption | Physical Disturbance and DLC Boundary Suite | $100\%$ of defined test cases | **$100.0\%$** ($6/6$) | **PASS** |
+| **REQ-07** | False Alarms | Benign Traffic Evaluation | False Positive Rate $< 1.0\%$ | **$0.470\%$** | **PASS** |
+| **REQ-08** | Throughput & Overhead | Sustained Execution Benchmark | $\ge 10,000$ frames/sec | **$55,615.9$ fps** | **PASS** |
 | **REQ-09** | Reproducibility | Multi-Run Bit-for-Bit Hash | $100\%$ identical output | **$100.0\%$** | **PASS** |
 | **REQ-10** | Target Conformance | GCC Compiled C Conformance | $100\%$ prediction agreement | **$100.00\%$** | **PASS** |
 
@@ -71,7 +71,7 @@ canfd-ids/
 │   ├── generate_dataset.py        # Generates multi-episode training, validation, and test datasets
 │   ├── run_simulation.py          # Live end-to-end simulation runner with bit-stream validation
 │   └── run_evaluation.py          # Full verification suite checking REQ-01 through REQ-10
-├── tests/                         # Exhaustive unit and integration test suite (27 tests)
+├── tests/                         # Unit and integration test suite (40 tests)
 ├── requirements.txt               # Python package dependencies
 └── README.md                      # Engineering documentation
 ```
@@ -160,3 +160,8 @@ The compiled C classifier runs in $< 220\ \text{ns}$ per frame with zero dynamic
 8. [Simulation Summary JSON](results/reports/simulation_summary.json)
 9. [Confusion Matrix Heatmap](results/graphs/confusion_matrix.png)
 10. [Feature Ablation Plot](results/graphs/ablation_study.png)
+11. [Report-facing Test CSV](results/report_data/canfd_test_frames.csv)
+12. [ROC Curves](results/graphs/roc_curves.png)
+13. [False Positives versus Bus Load](results/graphs/false_positives_vs_bus_load.png)
+14. [Tree Complexity versus Depth](results/graphs/tree_complexity_vs_depth.png)
+# CAN-FD
