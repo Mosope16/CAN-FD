@@ -79,8 +79,9 @@ protocol_corruption_test_suite:
 
   - name: "Invalid_DLC_Value"
     test_id: "TST-006-4"
-    corrupt_field: "DLC"
-    invalid_raw_value: 0xFF
+    corrupt_field: "DLC_LOGICAL_INGRESS"
+    invalid_value: 0xFF
+    note: "A physical DLC is four bits; reject invalid values before serialization."
 
   - name: "ACK_Delimiter_Violation"
     test_id: "TST-006-5"

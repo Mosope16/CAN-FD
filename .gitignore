@@ -5,3 +5,5 @@ __pycache__/
 .pytest_cache/
 *.pkl
 models/exported/c_classifier
+models/exported/benchmark_c
+CAN-FD REQUIREMENTS.pdf

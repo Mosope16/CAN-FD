@@ -47,8 +47,8 @@ Testing is divided into:
 ### TST-005: Suppression Attack Detection Latency
 * **Target Requirement:** REQ-05
 * **Preconditions:** Missing Message Supervisor active with expected deadlines configured.
-* **Input Scenario:** Silence periodic transmission of `0x101` EngineTemp (period 100ms) starting at $T=8000$ ms.
-* **Expected Result:** Supervisor deadline expires at $T=8000 + (2.5 \times 100) = 8250$ ms; alert generated immediately upon tick expiration.
+* **Input Scenario:** Silence periodic transmission of `0x102` BrakeStatus (period 20ms) starting at $T=8000$ ms.
+* **Expected Result:** Supervisor deadline expires at $T=8000 + (1.5 \times 20) = 8030$ ms; alert generated on the next bus tick.
 * **Pass Criteria:** $(T_{\text{alert}} - T_{\text{deadline}}) \le 100.0$ ms.
 
 ### TST-006: Bit Corruption Protocol Verification
@@ -58,7 +58,7 @@ Testing is divided into:
   1. Invert bit in CRC-17 / CRC-21 checksum.
   2. Insert 6 identical consecutive bits in data stream without dynamic stuff bit.
   3. Invert fixed stuff bit in CRC field.
-  4. Encode invalid DLC byte value ($>15$).
+  4. Reject an invalid logical DLC value ($>15$) before serialization; the physical DLC field is only four bits.
   5. Violate recessive ACK delimiter with dominant bit.
 * **Expected Result:** Protocol validator rejects each corrupted frame and logs corresponding error code.
 * **Pass Criteria:** $100\%$ detection rate across all defined corruption test cases.

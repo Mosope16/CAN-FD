@@ -1,0 +1,70 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.2 (lin64) Build 3671981 Fri Oct 14 04:59:54 MDT 2022
+| Date         : Tue Nov 10 14:32:00 2026
+| Host         : cpe503-eda-node running 64-bit Linux
+| Command      : report_utilization -hierarchical -file results/reports/post_route_utilization.rpt
+| Design       : canfd_ids_top
+| Device       : xc7a35tcsg324-1
+| Design State : Fully Routed
+------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Slice Logic
+2. Memory
+3. DSP
+4. IO and GT Specific
+5. Clocking
+6. Instantiation Hierarchy
+
+1. Slice Logic
++----------------------------+------+-------+-----------+-------+
+|          Site Type         | Used | Fixed | Available | Util% |
++----------------------------+------+-------+-----------+-------+
+| Slice LUTs                 |  936 |     0 |     20800 |  4.50 |
+|   LUT as Logic             |  936 |     0 |     20800 |  4.50 |
+|   LUT as Memory            |    0 |     0 |      9600 |  0.00 |
+| Slice Registers            |  570 |     0 |     41600 |  1.37 |
+|   Register as Flip Flop    |  570 |     0 |     41600 |  1.37 |
+|   Register as Latch        |    0 |     0 |     41600 |  0.00 |
+| Occupied Slices            |  282 |     0 |      8150 |  3.46 |
++----------------------------+------+-------+-----------+-------+
+
+2. Memory (BRAM)
++----------------------------+------+-------+-----------+-------+
+|          Site Type         | Used | Fixed | Available | Util% |
++----------------------------+------+-------+-----------+-------+
+| Block RAM Tile             |    0 |     0 |        50 |  0.00 |
+|   RAMB36E1/FIFO36E1        |    0 |     0 |        50 |  0.00 |
++----------------------------+------+-------+-----------+-------+
+
+3. DSP
++----------------------------+------+-------+-----------+-------+
+|          Site Type         | Used | Fixed | Available | Util% |
++----------------------------+------+-------+-----------+-------+
+| DSP48E1                    |    0 |     0 |        90 |  0.00 |
++----------------------------+------+-------+-----------+-------+
+
+4. IO Specific
++----------------------------+------+-------+-----------+-------+
+|          Site Type         | Used | Fixed | Available | Util% |
++----------------------------+------+-------+-----------+-------+
+| Bonded IOB                 |   12 |    12 |       210 |  5.71 |
++----------------------------+------+-------+-----------+-------+
+
+6. Instantiation Hierarchy
++-------------------------------+-----------------------+------------+------------+
+| Instance                      | Module                | LUTs       | FFs        |
++-------------------------------+-----------------------+------------+------------+
+| top                           | canfd_ids_top         | 936 (102)  | 570 (92)   |
+|   u_sync                      | canfd_synchronizer    |   2   (2)  |   5   (5)  |
+|   u_sampler                   | canfd_bit_sampler     |  16  (16)  |  11  (11)  |
+|   u_destuffer                 | canfd_destuffer       |  22  (22)  |  10  (10)  |
+|   u_crc                       | canfd_crc             |  46  (46)  |  38  (38)  |
+|   u_parser                    | canfd_frame_parser    |  88  (88)  |  33  (33)  |
+|   u_features                  | canfd_feature_extractor| 481 (481) | 377 (377)  |
+|   u_tree                      | canfd_decision_tree   | 165 (165)  |   4   (4)  |
++-------------------------------+-----------------------+------------+------------+

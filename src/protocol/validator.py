@@ -33,6 +33,15 @@ class ProtocolValidator:
         return report
 
     @staticmethod
+    def validate_dlc(dlc: int) -> ProtocolValidationReport:
+        """Validate a logical DLC before it is encoded into four wire bits."""
+        report = ProtocolValidationReport(is_valid=ProtocolValidator.is_dlc_valid(dlc))
+        if not report.is_valid:
+            report.invalid_dlc_error = True
+            report.errors.append("INVALID_DLC")
+        return report
+
+    @staticmethod
     def is_dlc_valid(dlc: int) -> bool:
         """Verify that DLC is within ISO 11898-1:2015 4-bit range."""
         return 0 <= dlc <= 15

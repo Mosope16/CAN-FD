@@ -709,21 +709,47 @@
     }
   },
   "cpu_latencies": {
-    "avg_us": 232.219,
-    "worst_case_us": 431.922,
-    "p99_us": 369.449
+    "avg_us": 248.888,
+    "worst_case_us": 601.684,
+    "p99_us": 447.442
   },
   "throughput": {
-    "frames_per_sec": 62138.0,
+    "frames_per_sec": 55615.9,
     "total_frames": 4915,
-    "elapsed_sec": 0.0791,
-    "per_frame_overhead_us": 16.09,
-    "feature_extraction_us": 15.8,
-    "vectorized_inference_us": 0.3,
+    "elapsed_sec": 0.0884,
+    "per_frame_overhead_us": 17.98,
+    "feature_extraction_us": 17.65,
+    "vectorized_inference_us": 0.33,
     "c_inference_ns": 4.34,
     "c_throughput_fps": 230000000.0,
     "execution_tiers_note": "Throughput of ~50,000-68,000 fps (14-19 us/frame) reflects full end-to-end Python pipeline execution (feature extraction + window rate updates + vectorized inference). In embedded deployment, the exported ANSI C decision tree achieves 4.34 ns/frame (>230.0M fps). The ~217 us benchmark represents unvectorized single-vector Python/scikit-learn function call overhead."
   },
+  "protocol_results": [
+    {
+      "case": "CRC Bit Inversion",
+      "detected": true
+    },
+    {
+      "case": "Dynamic Stuffing Violation",
+      "detected": true
+    },
+    {
+      "case": "Fixed Stuff Bit Inversion (FS0)",
+      "detected": true
+    },
+    {
+      "case": "Fixed Stuff Bit Inversion (FS1)",
+      "detected": true
+    },
+    {
+      "case": "ACK Delimiter Violation",
+      "detected": true
+    },
+    {
+      "case": "Invalid DLC at logical ingress",
+      "detected": true
+    }
+  ],
   "ablation_results": {
     "Config_A_PerFrameOnly": {
       "num_features": 8,
@@ -865,7 +891,7 @@
       "id": "REQ-06",
       "threat": "Bit Corruption",
       "target": "100% of defined cases",
-      "actual": "100.0%",
+      "actual": "100.0% (6/6)",
       "pass": true
     },
     {
@@ -879,7 +905,7 @@
       "id": "REQ-08",
       "threat": "Throughput",
       "target": ">= 10000 fps",
-      "actual": "62138.0 fps",
+      "actual": "55615.9 fps",
       "pass": true
     },
     {

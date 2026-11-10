@@ -132,6 +132,8 @@ def main() -> None:
     for cname, cfn in corruption_cases:
         rep = validator.validate_stream(cfn(clean_bs).bits)
         protocol_results.append((cname, not rep.is_valid))
+    invalid_dlc_report = validator.validate_dlc(0xFF)
+    protocol_results.append(("Invalid DLC at logical ingress", not invalid_dlc_report.is_valid))
     all_corruptions_detected = all(r[1] for r in protocol_results)
     print(f"         Protocol Corruption Detection Rate: {100.0 if all_corruptions_detected else 0.0}%")
 
@@ -217,7 +219,7 @@ def main() -> None:
             "id": "REQ-06",
             "threat": "Bit Corruption",
             "target": "100% of defined cases",
-            "actual": "100.0%",
+            "actual": f"{sum(detected for _, detected in protocol_results) / len(protocol_results) * 100:.1f}% ({sum(detected for _, detected in protocol_results)}/{len(protocol_results)})",
             "pass": all_corruptions_detected,
         },
         {
@@ -264,6 +266,10 @@ def main() -> None:
         "latencies": latencies,
         "cpu_latencies": cpu_latencies,
         "throughput": tp_benchmark,
+        "protocol_results": [
+            {"case": name, "detected": detected}
+            for name, detected in protocol_results
+        ],
         "ablation_results": ablation_res,
         "unseen_results": unseen_res,
         "requirements_summary": req_evaluations,

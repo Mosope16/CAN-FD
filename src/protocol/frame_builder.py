@@ -52,6 +52,9 @@ class FrameBuilder:
         Returns:
             PhysicalBitStream containing complete bit stream and structural diagnostics.
         """
+        # A physical CAN-FD DLC is a four-bit field; reject invalid logical
+        # values before attempting to encode the frame.
+        expected_bytes = dlc_to_bytes(frame.dlc)
         raw_bits: list[int] = []
 
         # 1. SOF: Start of Frame (1 dominant bit = 0)
@@ -82,7 +85,6 @@ class FrameBuilder:
         raw_bits.extend(int_to_bit_list(frame.dlc, 4))  # DLC (4 bits)
 
         # 3. Data Field
-        expected_bytes = dlc_to_bytes(frame.dlc)
         padded_payload = frame.data.ljust(expected_bytes, b"\x00")
         for byte_val in padded_payload:
             raw_bits.extend(int_to_bit_list(byte_val, 8))

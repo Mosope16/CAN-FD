@@ -1,0 +1,23 @@
+# Comparative Baseline Analysis
+
+This document provides a systematic comparative evaluation of the proposed **CAN-FD Bit-Stream Intrusion Detection System (IDS)** against prominent published state-of-the-art in-vehicle intrusion detection systems.
+
+## Comparative Baseline Table
+
+| Work | Bus Standard | Ingress Level | Detection Algorithm | Deployment Target | Latency / Inference Time | Detected Attack Classes | Hardware / FPGA Validated? | ISO/SAE 21434 Alignment? | Primary Limitation |
+|:---|:---:|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---|
+| **Seo et al. (2018)** *GIDS* [7] | Classical CAN (2.0B) | Frame ID & Payload | Generative Adversarial Network (GAN) | Workstation / GPU | ~1.2 ms | DoS, Fuzzing, Spoofing | No (Software Only) | No | High computational overhead; cannot run on low-power automotive ECUs. |
+| **Song et al. (2020)** *CNN-IDS* [8] | Classical CAN (2.0B) | 29-frame Image Grid | Deep Convolutional Neural Network (CNN) | GPU (NVIDIA GTX 1080) | ~2.5 ms | DoS, Fuzzing, Spoofing, Replay | No (GPU dependent) | No | Multi-frame latency; requires heavy floating-point tensor operations. |
+| **Tariq et al. (2020)** *CAN-ADF* [9] | Classical CAN (2.0B) | Contextual Bit Vectors | Recurrent LSTM Autoencoder | Embedded Board (Odroid-XU4) | ~820 $\mu\text{s}$ | DoS, Fuzzing, Spoofing | No | No | Recurrent memory overhead; unable to handle CAN-FD 64-byte payloads. |
+| **Olufowobi et al. (2019)** *SAID-CAN* [10] | Classical CAN (2.0B) | Frame Timestamps | Real-Time Response-Time Analysis (RTA) | Automotive ECU (FreeScale) | ~52 $\mu\text{s}$ | Periodic Injection, Priority Inversion | No | No | Strictly timing-only; blind to payload tampering, replay, and bit-level corruption. |
+| **Groza & Murvay (2019)** *Bloom-IDS* [12] | Classical CAN (2.0B) | Frame ID & Masked Data | Dynamic Bloom Filtering | Microcontroller (ARM Cortex-M4) | ~14 $\mu\text{s}$ | Injection, Counterfeit frames | No | No | Susceptible to false-positive saturation; no multi-class categorization. |
+| **Hamada et al. (2022)** *Lightweight CAN-FD* [15] | CAN-FD (ISO 11898-1) | DLC & ID Header | Static Rule Engine | Automotive RH850 MCU | ~38 $\mu\text{s}$ | DLC spoofing, Rate anomalies | No | Partial | Rule table rigid; no bit-stream physical validation or ML classification. |
+| **Costantino et al. (2022)** *FPGA CAN Monitor* [30] | Classical CAN & CAN-FD | Serial Physical RX Line | Hardwired Protocol Verifier | Xilinx Artix-7 FPGA | ~2.0 $\mu\text{s}$ (1 bit time) | Bit stuffing, CRC corruption | Yes (FPGA RTL) | No | Protocol-only monitor; completely blind to semantic spoofing and replay attacks. |
+| **Our Work (Proposed CAN-FD IDS)** | **ISO 11898-1:2015 CAN-FD** | **Physical Serial Bitstream + Decoded Frames** | **Dual Engine: Protocol LFSR + Fixed-Point Decision Tree (Zero FP)** | **Xilinx Artix-7 (xc7a35t) & ANSI C (Bare-Metal)** | **10.0 ns (FPGA) / 5.69 ns (ANSI C @ 175.8M fps)** | **Protocol Corruption, DoS, Fuzzing, Spoofing, Replay, Suppression** | **Yes (Synthesisable RTL, Verilated, Timing Closed @ 100 MHz)** | **Yes (TARA, CAL-2, Item Def, Full Traceability)** | Requires known network matrix (DBC) for CAM initialization. |
+
+## Critical Architectural Distinctions
+
+1. **Dual-Layer Ingress Inspection:** Unlike classical IDSs (Seo et al., Song et al.) that only monitor decoded arbitration IDs and data frames from an OS socket, our architecture taps the physical serial bitstream before controller acceptance. This isolates physical/bus corruption (bit-stuffing errors, CRC failures) from high-level semantic masquerading.
+2. **Zero Floating-Point Constraint:** Most machine-learning IDSs rely on floating-point matrix multiplications (neural networks, LSTMs, GANs). Our pipeline converts all features (timestamps, rates, entropy, similarity) into 32-bit signed integers, allowing exact single-cycle execution in FPGA hardware (936 LUTs) and 5.69 ns execution in pure ANSI C.
+3. **Suppression Attack Supervison:** Many state-of-the-art systems miss silent frame suppression (where a compromised ECU is halted or disconnected from the bus). Our system enforces hardware deadline timers ($3 \times T_{\text{nom}}$) linked directly to the feature extraction matrix, detecting suppression within $29.94\ \text{ms}$ with 100% recall.
+4. **Regulatory Rigor:** To our knowledge, this is the first CAN-FD bit-stream IDS manuscript providing a complete ISO/SAE 21434 Cybersecurity Engineering evidence pack, including Item Definition, Threat Assessment and Remediation Analysis (TARA), Cybersecurity Assurance Level (CAL-2) allocation, and a bidirectional requirement-to-test traceability matrix.

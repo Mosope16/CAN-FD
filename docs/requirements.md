@@ -45,12 +45,12 @@ The following requirements translate the Cybersecurity Goals established in the 
 * **Success Criteria:** $\frac{TP_{\text{replay}}}{TP_{\text{replay}} + FN_{\text{replay}}} \ge 0.90$.
 
 ### REQ-05: Message Suppression Detection
-* **Requirement:** The IDS shall detect the non-arrival of an expected periodic CAN-FD frame within 100 ms of its expected arrival deadline.
+* **Requirement:** The IDS shall detect the non-arrival of an expected periodic CAN-FD frame within 100 ms of its expected arrival deadline. The verification scenario suppresses BrakeStatus `0x102` (20 ms nominal period).
 * **Rationale:** Silent loss of steering or brake telemetry requires prompt diagnostic alert.
 * **Success Criteria:** $T_{\text{suppression\_alert}} - T_{\text{expected\_deadline}} \le 100.0 \text{ ms}$.
 
 ### REQ-06: Protocol-Level Bit Corruption Detection
-* **Requirement:** The protocol validator shall identify 100% of defined corruption test cases (CRC bit flips, stuff bit violations, fixed stuff bit errors, invalid DLC representations, and ACK delimiter corruptions).
+* **Requirement:** The protocol validator shall identify 100% of defined corruption test cases (CRC bit flips, dynamic and fixed stuff violations, invalid DLC values at logical ingress, and ACK delimiter corruptions). Invalid DLC values cannot be represented on the four-bit physical DLC field and must therefore be rejected before serialization.
 * **Rationale:** Low-level physical bit corruptions must be distinguished from syntactically valid malicious payloads.
 * **Success Criteria:** Detected corruptions in test suite $= \text{Total defined corruptions } (100\%)$.
 

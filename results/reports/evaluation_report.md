@@ -16,10 +16,10 @@ All **ten cybersecurity requirements (REQ-01 through REQ-10)** derived from the 
 * **Overall Classification Accuracy:** $99.56\%$
 * **Macro F1-Score:** $0.9852$
 * **Benign False Positive Rate (FPR):** $0.47\%$ (well below the $1.0\%$ threshold)
-* **Sustained Simulation Throughput:** $62,138.0$ frames/sec ($16.09\ \mu\text{s}$ total pipeline overhead per frame)
-* **Embedded Microcontroller Execution:** $5.69\ \text{ns}$ ($0.0057\ \mu\text{s}$) per frame in standalone compiled ANSI C ($175.8\text{M}$ frames/sec) with active compiler barriers and observable checksum accumulation.
+* **Sustained Simulation Throughput:** $55,615.9$ frames/sec ($17.98\ \mu\text{s}$ total pipeline overhead per frame)
+* **Embedded Microcontroller Execution:** $4.34\ \text{ns}$ ($0.0043\ \mu\text{s}$) per frame in standalone compiled ANSI C ($230.0\text{M}$ frames/sec) with active compiler barriers and observable checksum accumulation.
 * **C-Inference Conformance:** $100.00\%$ bit-for-bit agreement between scikit-learn Python and compiled ANSI C across all test samples and 500 boundary vectors.
-* **Protocol-Level Bit Corruption Detection:** $100.0\%$ detection across all defined physical layer corruption test vectors.
+* **Protocol-Level Bit Corruption Detection:** $100.0\%$ detection across all defined protocol corruption vectors, including logical DLC ingress validation.
 * **Zero-Day / Unseen Attack Defense:** Dual-Engine IDS architecture (Supervised Decision Tree + Normal-Only Anomaly Detector) elevates unseen attack recall to $100\%$ on DoS, $100\%$ on Fuzzing, $95.80\%$ on Spoofing, and $100\%$ on Replay.
 
 ---
@@ -33,9 +33,9 @@ All **ten cybersecurity requirements (REQ-01 through REQ-10)** derived from the 
 | **REQ-03** | Masquerade / Spoofing | `PeriodDeviation` & DT | Recall $\ge 90.0\%$ | **$97.90\%$** | **PASS** |
 | **REQ-04** | Message Replay | `ReplaySimilarity` & DT | Recall $\ge 90.0\%$ | **$94.00\%$** | **PASS** |
 | **REQ-05** | Message Suppression | `ProtocolMonitor` Deadlines | Latency $\le 100$ ms | **$29.94$ ms** ($69.95$ ms sustained 3-deadline) | **PASS** |
-| **REQ-06** | Bit-Level Corruption | `ProtocolValidator` | $100\%$ of defined test suite | **$100.0\%$** ($5/5$ test vectors) | **PASS** |
+| **REQ-06** | Bit-Level Corruption | `ProtocolValidator` | $100\%$ of defined test suite | **$100.0\%$** ($6/6$ test vectors) | **PASS** |
 | **REQ-07** | False Alarms | Full Pipeline Baseline | False Positive Rate $< 1.0\%$ | **$0.470\%$** ($12/2572$ normal frames) | **PASS** |
-| **REQ-08** | Throughput & Overhead | Integer Feature Engine | $\ge 10,000$ frames/sec | **$62,138.0$ frames/sec** ($16.09\ \mu\text{s}$/frame) | **PASS** |
+| **REQ-08** | Throughput & Overhead | Integer Feature Engine | $\ge 10,000$ frames/sec | **$55,615.9$ frames/sec** ($17.98\ \mu\text{s}$/frame) | **PASS** |
 | **REQ-09** | Determinism & Repeatability | Simulation Clockwork | $100\%$ reproducible outputs | **$100.0\%$** bit-for-bit identical hashes | **PASS** |
 | **REQ-10** | Target Conformance | `CCodeExporter` ANSI C | $100\%$ C/Python agreement | **$100.00\%$** ($4,975/4,975$ test samples) | **PASS** |
 
@@ -115,7 +115,7 @@ The computational performance is separated into three distinct execution tiers:
    * **Feature Extraction Overhead:** **$15.80\ \mu\text{s}$** per frame.
    * **Vectorized Model Inference:** **$0.30\ \mu\text{s}$** per frame.
    * **Total Pipeline Overhead:** **$16.09\ \mu\text{s}$** per frame.
-   * **Sustained Simulation Throughput:** **$62,138.0$ frames/second** (exceeding REQ-08 target of $10,000$ fps by $6.2\times$).
+   * **Sustained Simulation Throughput:** **$55,615.9$ frames/second** (exceeding REQ-08 target of $10,000$ fps by $5.6\times$).
 
 3. **Python Unvectorized Single-Call Overhead (Testing Artifact):**
    * Measured by invoking `model.predict(single_vector)` in an unvectorized loop.
@@ -126,15 +126,16 @@ The computational performance is separated into three distinct execution tiers:
 
 ## 5. Protocol-Level Bit Corruption Verification (REQ-06)
 
-To validate the low-level bit-stream engine independently from behavioral attacks, five physical layer disturbance vectors were tested against clean synthesized frames:
+To validate the low-level bit-stream engine independently from behavioral attacks, five physical layer disturbance vectors and one logical-ingress boundary vector were tested:
 
 1. **CRC Checksum Bit Flip:** An inversion of bit offset 2 in the CRC field was injected. The `FrameDecoder` and `ProtocolValidator` detected `CRC_MISMATCH` and rejected the frame before feature extraction.
 2. **Dynamic Bit-Stuffing Violation:** An unbroken sequence of 6 consecutive dominant bits was forced into the data stream. The decoder flagged `DYNAMIC_STUFF_ERROR` and halted destuffing.
 3. **Fixed Stuff Bit 0 Inversion:** Fixed stuff bit 0 (at the start of the CRC field) was inverted to match the preceding bit instead of its complement. The decoder flagged `FIXED_STUFF_ERROR`.
 4. **Fixed Stuff Bit 1 Inversion:** Fixed stuff bit 1 (between the Stuff Count and the CRC sequence) was inverted. The decoder flagged `FIXED_STUFF_ERROR`.
 5. **ACK Delimiter Violation:** The recessive ACK Delimiter bit (1) was overwritten with dominant 0. The decoder flagged `ACK_DELIMITER_ERROR`.
+6. **Invalid DLC at Logical Ingress:** The invalid logical value `0xFF` was rejected before serialization with `INVALID_DLC`. It cannot be represented in the physical four-bit DLC field.
 
-**Result:** $100.0\%$ detection rate ($5/5$ test cases passed), satisfying REQ-06.
+**Result:** $100.0\%$ detection rate ($6/6$ test cases passed), satisfying REQ-06.
 
 ---
 
@@ -180,7 +181,7 @@ To evaluate model defensibility when confronted with unfamiliar or unmodeled att
 
 ## 8. Verification Coverage & Test Suite Maturity
 
-The automated test suite now comprises **39 automated tests** executed in $7.76$ seconds across 14 dedicated test modules:
+The automated test suite now comprises **40 automated tests** across 14 dedicated test modules:
 
 1. **Physical Protocol Layer:** CRC-17 / CRC-21 calculation, ISO dynamic bit stuffing and destuffing, fixed stuff bit insertion, frame serialization and decoding, protocol validator rejection of CRC bit flips, stuff violations, and ACK delimiter corruptions.
 2. **Attacks & Signal Modeling:** Physics-based continuous signal generation, discrete-event injection of DoS, Fuzzing, Spoofing, Replay, and Suppression.

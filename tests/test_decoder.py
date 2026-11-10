@@ -99,6 +99,23 @@ def test_corrupt_ack_delimiter():
     assert "ACK_DELIMITER_ERROR" in report.errors
 
 
+def test_invalid_dlc_rejected_at_logical_ingress():
+    frame = CANFDFrame(
+        timestamp_us=5000,
+        arbitration_id=0x100,
+        dlc=16,
+        data=b"\x00" * 64,
+    )
+
+    with pytest.raises(ValueError, match="Invalid CAN-FD DLC"):
+        FrameBuilder.serialize_frame(frame)
+
+    report = ProtocolValidator.validate_dlc(0xFF)
+    assert report.is_valid is False
+    assert report.invalid_dlc_error is True
+    assert "INVALID_DLC" in report.errors
+
+
 def test_protocol_validator_tracking():
     validator = ProtocolValidator()
     frame = CANFDFrame(
