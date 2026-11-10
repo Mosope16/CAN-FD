@@ -6,4 +6,6 @@ __pycache__/
 *.pkl
 models/exported/c_classifier
 models/exported/benchmark_c
+obj_dir/
+*.vcd
 CAN-FD REQUIREMENTS.pdf
