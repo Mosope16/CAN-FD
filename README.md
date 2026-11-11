@@ -81,14 +81,22 @@ canfd-ids/
 ## 4. Quickstart and Execution Guide
 
 ### 4.1 Prerequisites
-* Linux environment (Arch / Ubuntu / Debian / Fedora)
+* Windows 10/11, Linux, or macOS
 * Python 3.10+ (tested on Python 3.14)
-* GCC (for target C model compilation)
+* GCC or another C compiler (for target C model compilation)
+* AMD/Xilinx Vivado ML 2022.2+ with Artix-7 device support (for RTL synthesis)
 * Virtual environment with packages from `requirements.txt`
 
 ### 4.2 Installation
+Windows PowerShell:
+```powershell
+py -3 -m venv .venv
+\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
+
+Linux/macOS:
 ```bash
-# Set up virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -112,10 +120,33 @@ Executes end-to-end evaluation, tunes tree depth, tests REQ-01..10, runs ablatio
 PYTHONPATH=. python3 scripts/run_evaluation.py
 ```
 
+On Windows PowerShell, use:
+```powershell
+$env:PYTHONPATH = "."
+python scripts\run_evaluation.py
+```
+
 ### 4.6 Running Automated Unit Tests
 ```bash
 pytest tests/
 ```
+
+### 4.7 Vivado RTL Synthesis
+The RTL batch flow is portable between Windows and Linux because the Tcl script constructs paths with Tcl `file join`; do not hard-code a repository path into the script.
+
+From a Vivado Tcl Shell on Windows:
+```tcl
+cd C:/path/to/CAN-FD
+source scripts/synth_vivado.tcl
+```
+
+Or from Command Prompt after loading the Vivado environment:
+```bat
+"C:\Xilinx\Vivado\2022.2\bin\vivado.bat" -mode batch -source scripts\synth_vivado.tcl
+```
+
+The flow targets Artix-7 `xc7a35tcsg324-1` and writes reports plus `results/reports/canfd_ids.bit`.
+Before implementation or board programming, replace the pin assignments in `rtl/canfd_ids.xdc` with the master XDC for the exact board in use. The current file is not simultaneously valid for both Arty A7-35T and Nexys 4 DDR.
 
 ---
 

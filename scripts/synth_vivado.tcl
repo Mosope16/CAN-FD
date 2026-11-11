@@ -41,9 +41,11 @@ report_utilization -hierarchical -file [file join $OUTPUT_DIR "post_route_utiliz
 report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -file [file join $OUTPUT_DIR "post_route_timing.rpt"]
 report_power -file [file join $OUTPUT_DIR "post_route_power.rpt"]
 report_drc -file [file join $OUTPUT_DIR "post_route_drc.rpt"]
+write_bitstream -force [file join $OUTPUT_DIR "canfd_ids.bit"]
 
 puts "\n=================================================================="
 puts "Synthesis and Place & Route Complete!"
 puts "Utilization Report : $OUTPUT_DIR/post_route_utilization.rpt"
 puts "Timing Report      : $OUTPUT_DIR/post_route_timing.rpt"
+puts "Bitstream          : $OUTPUT_DIR/canfd_ids.bit"
 puts "=================================================================="
